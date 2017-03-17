@@ -36,7 +36,7 @@ namespace EcoProject
 
         public double GetRadiusCircle()
         {
-            double Radius = (GetValueEdge()) / (4 * GetSquare());
+            double Radius = GetValueEdge() / (4 * GetSquare());
             return Radius;
         }
 
