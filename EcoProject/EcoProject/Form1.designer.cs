@@ -40,6 +40,7 @@
             this.drawVertexButton = new System.Windows.Forms.Button();
             this.sheet = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.button_FirstEdge = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,11 +163,22 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // button_FirstEdge
+            // 
+            this.button_FirstEdge.Location = new System.Drawing.Point(12, 284);
+            this.button_FirstEdge.Name = "button_FirstEdge";
+            this.button_FirstEdge.Size = new System.Drawing.Size(45, 64);
+            this.button_FirstEdge.TabIndex = 14;
+            this.button_FirstEdge.Text = "Выпуклая сторона";
+            this.button_FirstEdge.UseVisualStyleBackColor = true;
+            this.button_FirstEdge.Click += new System.EventHandler(this.button_FirstEdge_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 444);
+            this.Controls.Add(this.button_FirstEdge);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.cycleButton);
             this.Controls.Add(this.chainButton);
@@ -201,6 +213,7 @@
         private System.Windows.Forms.Button chainButton;
         private System.Windows.Forms.Button cycleButton;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button button_FirstEdge;
     }
 }
 

@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using YakimovMaket;
 
 namespace EcoProject
 {
     public partial class Form1 : Form
     {
+        Graph graph;
+
         DrawGraph G;
         List<Vertex> V;
         List<Edge> E;
@@ -28,6 +31,7 @@ namespace EcoProject
             V = new List<Vertex>();
             G = new DrawGraph(sheet.Width, sheet.Height);
             E = new List<Edge>();
+            graph = new Graph();
             sheet.Image = G.GetBitmap();
         }
 
@@ -148,8 +152,15 @@ namespace EcoProject
             //нажата кнопка "рисовать вершину"
             if (drawVertexButton.Enabled == false)
             {
-                V.Add(new Vertex(e.X, e.Y));
-                G.drawVertex(e.X, e.Y, V.Count.ToString());
+                //V.Add(new Vertex(e.X, e.Y));
+                //G.drawVertex(e.X, e.Y, V.Count.ToString());
+                //sheet.Image = G.GetBitmap();
+
+                // Моё
+                graph.vertex.Add(new Vertex(e.X, e.Y));
+                graph.vertex.Sort();
+                G.clearSheet();
+                G.drawALLGraph(graph.vertex, graph.edges);
                 sheet.Image = G.GetBitmap();
             }
             //нажата кнопка "рисовать ребро"
@@ -447,6 +458,22 @@ namespace EcoProject
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button_FirstEdge_Click(object sender, EventArgs e)
+        {
+            double max = 0;
+            int j = 0;
+            graph.vertex.Sort();
+            for (int i = 1; i < graph.vertex.Count; i++)
+            {
+                if (MathPro.CosBy2Points(graph.vertex[0], graph.vertex[i]) > max)
+                {
+                    max = MathPro.CosBy2Points(graph.vertex[0], graph.vertex[i]);
+                    j = i;
+                }
+            }
+            G.gr.DrawLine(new Pen(Color.Black), graph.vertex[0].x, graph.vertex[0].y, graph.vertex[j].x, graph.vertex[j].y);
         }
     }
 }

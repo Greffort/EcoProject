@@ -10,9 +10,21 @@ using System.Windows.Forms;
 
 namespace EcoProject
 {
-    class Vertex
+    class Vertex: IComparable<Vertex>
     {
         public int x, y;
+
+        public int CompareTo(Vertex other)
+        {
+            if (x == other.x)
+            {
+                return y.CompareTo(other.y);
+            }
+            else
+            {
+                return x.CompareTo(other.x);
+            }
+        }
 
         public Vertex(int x, int y)
         {
@@ -38,7 +50,7 @@ namespace EcoProject
         Pen blackPen;
         Pen redPen;
         Pen darkGoldPen;
-        Graphics gr;
+        public Graphics gr;
         Font fo;
         Brush br;
         PointF point;
@@ -67,6 +79,20 @@ namespace EcoProject
         public void clearSheet()
         {
             gr.Clear(Color.White);
+        }
+
+        public void drawVertexName(Vertex vertex)
+        {
+            string str = "(" + vertex.x.ToString() + ";" + vertex.y.ToString() + ")";
+            point = new PointF(vertex.x - 9, vertex.y - 9);
+            gr.DrawString(str, fo, br, point);
+        }
+
+        public void drawVertex(Vertex vertex, string number)
+        {
+            gr.FillEllipse(Brushes.Black, (vertex.x - R), (vertex.y - R), 2 * R, 2 * R);
+            point = new PointF(vertex.x - 9, vertex.y - 9);
+            gr.DrawString(number, fo, br, point);
         }
 
         public void drawVertex(int x, int y, string number)
@@ -122,7 +148,7 @@ namespace EcoProject
             //рисуем вершины
             for (int i = 0; i < V.Count; i++)
             {
-                drawVertex(V[i].x, V[i].y, (i + 1).ToString());
+                drawVertex(V[i], (i + 1).ToString());
             }
         }
 
