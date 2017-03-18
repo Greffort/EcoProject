@@ -37,8 +37,6 @@ namespace EcoProject
         public double GetRadiusCircle()
         {
             //a : Mi*Mj; b : Mj*Mk; c : Mk*Mi;
-            
-
             double Square = Math.Abs((((vert[2].x - vert[0].x) * (vert[1].y - vert[0].y)) - ((vert[2].y - vert[0].y) * (vert[1].x - vert[0].x))));
 
             double Radius = (GetValueEdge()) / (4 * Square);
@@ -46,7 +44,5 @@ namespace EcoProject
             return Radius;
             
         }
-
-        //вычисление косинуса вроде, но это не точно, переименуй
     }
 }
