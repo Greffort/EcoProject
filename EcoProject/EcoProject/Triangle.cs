@@ -11,6 +11,19 @@ namespace EcoProject
         List<Vertex> vert;
         List<Edge> edge;
 
+        public Vertex M1;
+        public Vertex M2;
+        public Vertex M3;
+
+        public Edge E1;
+        public Edge E2;
+        public Edge E3;
+
+        public Vector V1;
+        public Vector V2;
+        public Vector V3;
+
+        //поменять конструкторы
         public Triangle(List<Vertex> vert, List<Edge> edge)
         {
             this.vert = vert;
@@ -24,6 +37,7 @@ namespace EcoProject
             vert.Add(v3);
         }
 
+        //переписать под поля
         public double GetValueEdge()
         {
             double a = Math.Abs(Math.Sqrt(Math.Pow(vert[1].x - vert[0].x, 2) + Math.Pow(vert[1].y - vert[0].y, 2)));
@@ -33,7 +47,7 @@ namespace EcoProject
 
             return abc;
         }
-
+        // передписать под поля и удалить листы!
         public double GetRadiusCircle()
         {
             //a : Mi*Mj; b : Mj*Mk; c : Mk*Mi;
@@ -46,3 +60,4 @@ namespace EcoProject
         }
     }
 }
+    
