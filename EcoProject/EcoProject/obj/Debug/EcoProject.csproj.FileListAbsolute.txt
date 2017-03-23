@@ -22,3 +22,6 @@ D:\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.pdb
 C:\Users\sv\Desktop\Eco\EcoProject.git\EcoProject\EcoProject\bin\Debug\EcoProject.exe.config
 C:\Users\sv\Desktop\Eco\EcoProject.git\EcoProject\EcoProject\obj\Debug\EcoProject.exe
 C:\Users\sv\Desktop\Eco\EcoProject.git\EcoProject\EcoProject\obj\Debug\EcoProject.pdb
+C:\Users\sv\Desktop\EcoProject\EcoProject.git\EcoProject\EcoProject\bin\Debug\EcoProject.exe.config
+C:\Users\sv\Desktop\EcoProject\EcoProject.git\EcoProject\EcoProject\obj\Debug\EcoProject.exe
+C:\Users\sv\Desktop\EcoProject\EcoProject.git\EcoProject\EcoProject\obj\Debug\EcoProject.pdb

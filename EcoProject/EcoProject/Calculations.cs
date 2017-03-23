@@ -40,13 +40,10 @@ namespace EcoProject
             if (n2 * new Vector(tr.M2, tr.M1) > 0) V2 = (-1) * V2;
 
             V3 = a3 * n3;
-            if (n3 * new Vector(tr.M3, tr.M2 ) > 0) V3 = (-1) * V3;
-
-
-
+            if (n3 * new Vector(tr.M3, tr.M2) > 0) V3 = (-1) * V3;
         }
 
-        private float Scalar ( Vector V1, Vector V2)
+        private float Scalar(Vector V1, Vector V2)
         {
             float scalar = V1.x * V2.x + V1.y * V2.y;
             return scalar;

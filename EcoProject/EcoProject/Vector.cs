@@ -10,7 +10,7 @@ namespace EcoProject
     {
         public float x, y;
 
-        public Vector (float x, float y)
+        public Vector(float x, float y)
         {
             this.x = x;
             this.y = y;
@@ -28,7 +28,7 @@ namespace EcoProject
             this.y = point2.y - point1.y;
         }
 
-        public static Vector operator + (Vector obj1, Vector obj2)
+        public static Vector operator +(Vector obj1, Vector obj2)
         {
             Vector objresult;
 
@@ -38,32 +38,28 @@ namespace EcoProject
             objresult = new Vector(x, y);
 
             return objresult;
-            
+
         }
 
-        public static float operator * (Vector obj1, Vector obj2)
+        public static float operator *(Vector obj1, Vector obj2)
         {
 
             float scalar = obj1.x * obj2.x + obj1.y * obj2.y;
 
             return scalar;
-           
+
         }
 
-        public static Vector operator ! (Vector obj1) //нормальный вектор
+        public static Vector operator !(Vector obj1) //нормальный вектор
         {
             Vector objresult;
 
-            float x = (-1)* obj1.y;
+            float x = (-1) * obj1.y;
             float y = obj1.x;
 
             objresult = new Vector(x, y);
 
             return objresult;
         }
-
-  
-
-       
     }
 }
