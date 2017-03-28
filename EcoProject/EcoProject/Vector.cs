@@ -49,6 +49,15 @@ namespace EcoProject
             return scalar;
 
         }
+        public static Vector operator *(float num, Vector obj1)
+        {
+
+            obj1.x *= num;
+            obj1.y *= num;
+
+            return obj1;
+
+        }
 
         public static Vector operator !(Vector obj1) //нормальный вектор
         {

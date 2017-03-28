@@ -473,7 +473,26 @@ namespace EcoProject
                     j = i;
                 }
             }
-            G.gr.DrawLine(new Pen(Color.Black), graph.vertex[0].x, graph.vertex[0].y, graph.vertex[j].x, graph.vertex[j].y);
+            graph.edges.Add(new Edge(graph.vertex[0], graph.vertex[j]));
+            G.drawEdge(graph.edges[0]);
+            sheet.Image = G.GetBitmap();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+
+            Triangulator triang = new Triangulator(graph);
+            List<Triangle> tr = triang.triangulate();
+            G.drawEdge(tr[0].E1);
+            G.drawEdge(tr[0].E2);
+            G.drawEdge(tr[0].E3);
+            sheet.Image = G.GetBitmap();
+            //for (int i = 0; i < tr.Count; i++)
+            //{
+            //    richTextBox1.Text += tr[i].ToString();
+            //}
+
         }
     }
 }

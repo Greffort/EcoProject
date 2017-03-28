@@ -13,6 +13,7 @@ namespace EcoProject
     class Vertex: IComparable<Vertex>
     {
         public int x, y;
+        public int num;
 
         public int CompareTo(Vertex other)
         {
@@ -35,8 +36,17 @@ namespace EcoProject
 
     class Edge
     {
-        public int v1, v2;
+        public Vertex vert1;
+        public Vertex vert2;
 
+        public int v1;
+        public int v2;
+
+        public Edge(Vertex v1, Vertex v2)
+        {
+            this.vert1 = v1;
+            this.vert2 = v2;
+        }
         public Edge(int v1, int v2)
         {
             this.v1 = v1;
@@ -92,7 +102,7 @@ namespace EcoProject
         {
             gr.FillEllipse(Brushes.Black, (vertex.x - R), (vertex.y - R), 2 * R, 2 * R);
             point = new PointF(vertex.x - 9, vertex.y - 9);
-            gr.DrawString(number, fo, br, point);
+            gr.DrawString(number + " " + point.ToString(), fo, br, point);
         }
 
         public void drawVertex(int x, int y, string number)
@@ -125,6 +135,11 @@ namespace EcoProject
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
             }
+        }
+
+        public void drawEdge(Edge edge)
+        {
+            gr.DrawLine(darkGoldPen, edge.vert1.x, edge.vert1.y, edge.vert2.x, edge.vert2.y);
         }
 
         public void drawALLGraph(List<Vertex> V, List<Edge> E)

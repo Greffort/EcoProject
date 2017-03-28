@@ -11,8 +11,8 @@ namespace YakimovMaket
     {
         public static double Fluctuation(double a, double b)
         {
-            Random random = new Random();
-            return (a - b) + 2 * b * random.NextDouble();
+            Random rand = new Random();
+            return (a - b) + 2 * b * rand.NextDouble();
         }
         public static double CosBy2Points(Vertex V1, Vertex V2)
         {

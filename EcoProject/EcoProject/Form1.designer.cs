@@ -41,6 +41,8 @@
             this.sheet = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.button_FirstEdge = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,11 +175,31 @@
             this.button_FirstEdge.UseVisualStyleBackColor = true;
             this.button_FirstEdge.Click += new System.EventHandler(this.button_FirstEdge_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 376);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(46, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "список треугольников";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(714, 102);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(130, 127);
+            this.richTextBox1.TabIndex = 16;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 444);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button_FirstEdge);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.cycleButton);
@@ -214,6 +236,8 @@
         private System.Windows.Forms.Button cycleButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button button_FirstEdge;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

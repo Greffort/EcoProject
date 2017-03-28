@@ -15,9 +15,9 @@ namespace EcoProject
             Vector a2 = new Vector();
             Vector a3 = new Vector();
 
-            a1 = tr.V1 + tr.V2;
-            a2 = tr.V2 + tr.V3;
-            a3 = tr.V3 + tr.V1;
+            a1 = 0.5f * (tr.V1 + tr.V2);
+            a2 = 0.5f * (tr.V2 + tr.V3);
+            a3 = 0.5f * (tr.V3 + tr.V1);
 
             Vector n1 = new Vector(tr.M1, tr.M2);
             Vector n2 = new Vector(tr.M2, tr.M3);
@@ -34,13 +34,13 @@ namespace EcoProject
 
 
             V1 = a1 * n1;
-            if (n1 * new Vector(tr.M1, tr.M3) > 0) V1 = (-1) * V1;
+            if (n1 * new Vector(tr.M1, tr.M3) < 0) V1 = (-1) * V1;
 
             V2 = a2 * n2;
-            if (n2 * new Vector(tr.M2, tr.M1) > 0) V2 = (-1) * V2;
+            if (n2 * new Vector(tr.M2, tr.M1) < 0) V2 = (-1) * V2;
 
             V3 = a3 * n3;
-            if (n3 * new Vector(tr.M3, tr.M2) > 0) V3 = (-1) * V3;
+            if (n3 * new Vector(tr.M3, tr.M2) < 0) V3 = (-1) * V3;
         }
 
         private float Scalar(Vector V1, Vector V2)
