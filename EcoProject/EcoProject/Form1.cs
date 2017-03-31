@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using YakimovMaket;
+using System.Drawing.Drawing2D;
 
 namespace EcoProject
 {
@@ -33,6 +34,7 @@ namespace EcoProject
             E = new List<Edge>();
             graph = new Graph();
             sheet.Image = G.GetBitmap();
+            
         }
 
         //кнопка - выбрать вершину
@@ -457,7 +459,7 @@ namespace EcoProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+         
         }
 
         private void button_FirstEdge_Click(object sender, EventArgs e)
@@ -493,6 +495,12 @@ namespace EcoProject
             //    richTextBox1.Text += tr[i].ToString();
             //}
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            sheet.Image = G.GetBitmap();
+            G.BrushTriangle();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,6 +80,16 @@ namespace EcoProject
             darkGoldPen.Width = 2;
             fo = new Font("Arial", 8);
             br = Brushes.Black;
+
+            //
+            //Point[] myPoints1 = { new Point(580, 210), new Point(580, 260), new Point(480, 260) };
+            //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1);
+
+            //SolidBrush redBrush = new SolidBrush(Color.Red);
+            //GraphicsPath graphPath = new GraphicsPath();
+            //graphPath.AddPolygon(myPoints1);
+            //gr.FillPath(redBrush, graphPath);
+
         }
 
         public Bitmap GetBitmap()
@@ -96,6 +107,7 @@ namespace EcoProject
             string str = "(" + vertex.x.ToString() + ";" + vertex.y.ToString() + ")";
             point = new PointF(vertex.x - 9, vertex.y - 9);
             gr.DrawString(str, fo, br, point);
+            
         }
 
         public void drawVertex(Vertex vertex, string number)
@@ -139,7 +151,7 @@ namespace EcoProject
 
         public void drawEdge(Edge edge)
         {
-            gr.DrawLine(darkGoldPen, edge.vert1.x, edge.vert1.y, edge.vert2.x, edge.vert2.y);
+            gr.DrawLine(darkGoldPen, edge.vert1.x, edge.vert1.y, edge.vert2.x, edge.vert2.y); 
         }
 
         public void drawALLGraph(List<Vertex> V, List<Edge> E)
@@ -193,6 +205,17 @@ namespace EcoProject
             }
         }
 
-        
+        public void BrushTriangle()
+        {
+            Point[] myPoints1 = { new Point(580, 210), new Point(580, 260), new Point(480, 260) };
+            PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1);
+
+            SolidBrush redBrush = new SolidBrush(Color.FromArgb(230, 230, 230));
+            GraphicsPath graphPath = new GraphicsPath();
+            graphPath.AddPolygon(myPoints1);
+            gr.FillPath(redBrush, graphPath);
+        }
+
+
     }
 }
