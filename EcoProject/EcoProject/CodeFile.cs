@@ -205,12 +205,13 @@ namespace EcoProject
             }
         }
 
-        public void BrushTriangle()
-        {
-            Point[] myPoints1 = { new Point(580, 210), new Point(580, 260), new Point(480, 260) };
-            PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1);
 
-            SolidBrush redBrush = new SolidBrush(Color.FromArgb(230, 230, 230));
+        //рисует треугольник
+        public void BrushTriangle(Triangle triangle)
+        {
+            Point[] myPoints1 = { new Point(triangle.M1.x, triangle.M1.y), new Point(triangle.M2.x, triangle.M2.y), new Point(triangle.M3.x, triangle.M3.y) };
+            //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1);
+            SolidBrush redBrush = new SolidBrush(Color.FromArgb(0, 0, 0));
             GraphicsPath graphPath = new GraphicsPath();
             graphPath.AddPolygon(myPoints1);
             gr.FillPath(redBrush, graphPath);

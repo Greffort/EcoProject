@@ -489,18 +489,28 @@ namespace EcoProject
             G.drawEdge(tr[0].E1);
             G.drawEdge(tr[0].E2);
             G.drawEdge(tr[0].E3);
+            //G.BrushTriangle(tr[0]);
             sheet.Image = G.GetBitmap();
             //for (int i = 0; i < tr.Count; i++)
             //{
             //    richTextBox1.Text += tr[i].ToString();
             //}
 
+            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             sheet.Image = G.GetBitmap();
-            G.BrushTriangle();
+            
+            
+            
+            
+            Triangle tr = new Triangle(new Vertex(125,125), new Vertex(350, 300), new Vertex(125, 84));
+            G.BrushTriangle(tr);
+
+
         }
     }
 }
