@@ -70,15 +70,42 @@ namespace EcoProject
 
         public void СalculationOfAllDensities()
         {
+            bool flag = true;
+            float DensityAndVolumes = 0f;
+            float Volumes = 0f;
+
+
             for (int i = 0; i < this.triangles.Count; i++)
             {
+
                 for (int j = 0; j < 3; j++)
                 {
-                    if (triangles[i].edgemas[j].Density != 0 && triangles[i].edgemas[j].Volume > 0)
+                    if (triangles[i].edgemas[j].Volume > 0)
                     {
-                        
+                        if (triangles[i].edgemas[j].Density < 0) flag = false;
+                        else
+                        {
+                            DensityAndVolumes += triangles[i].edgemas[j].Volume * triangles[i].edgemas[j].Density;
+                            Volumes += triangles[i].edgemas[j].Volume;
+                        }
                     }
                 }
+
+                if (flag)
+                {
+                    if (triangles[i].V4 > 0) Volumes += triangles[i].V4;
+
+                    triangles[i].DensityOfTriangle = DensityAndVolumes / Volumes;
+
+                    foreach (DelaunayTriangulator.Edge item in triangles[i].edgemas)
+                    {
+                        if (item.Density == 0) item.Density = triangles[i].DensityOfTriangle;
+                    }
+                }
+
+                flag = true;
+                Volumes = 0f;
+                DensityAndVolumes = 0f;
             }
         }
 

@@ -10,7 +10,7 @@ namespace DelaunayTriangulator
     public class Triangle
     {
 
-       
+
         public int a, b, c;
         public int ab, bc, ac;  // adjacent edges index to neighbouring triangle.
 
@@ -26,7 +26,7 @@ namespace DelaunayTriangulator
 
 
         public float V4;
-        public float Density;
+        public float DensityOfTriangle = new float();
         public Edge[] edgemas;
 
 
@@ -34,9 +34,9 @@ namespace DelaunayTriangulator
         // Position and radius squared of circumcircle
         public float circumcircleR2, circumcircleX, circumcircleY;
 
-        public Triangle(int x, int y, int z) 
+        public Triangle(int x, int y, int z)
         {
-            a = x; b = y; c = z; ab = -1; bc = -1; ac = -1; 
+            a = x; b = y; c = z; ab = -1; bc = -1; ac = -1;
             circumcircleR2 = -1; //x = 0; y = 0;
         }
 
@@ -100,7 +100,7 @@ namespace DelaunayTriangulator
             this.E2 = new Edge(M2, M3);
             this.E3 = new Edge(M3, M1);
 
-            
+
 
             this.vertexmas = new Vertex[3];
             this.edgemas = new Edge[3];
