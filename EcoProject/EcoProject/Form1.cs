@@ -11,6 +11,7 @@ using System.IO;
 using YakimovMaket;
 using System.Drawing.Drawing2D;
 
+
 namespace EcoProject
 {
     public partial class Form1 : Form
@@ -504,13 +505,21 @@ namespace EcoProject
         {
             sheet.Image = G.GetBitmap();
             
-            
-            
-            
             Triangle tr = new Triangle(new Vertex(125,125), new Vertex(350, 300), new Vertex(125, 84));
             G.BrushTriangle(tr);
 
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            sheet.Image = G.GetBitmap();
+            G.DrawsVector();
+        }
+
+        private void sheet_Click(object sender, EventArgs e)
+        {
+            //G.DrawsVector();
         }
     }
 }

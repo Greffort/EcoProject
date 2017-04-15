@@ -218,5 +218,14 @@ namespace EcoProject
         }
 
 
+        public void DrawsVector()
+        {
+            Pen pen = new Pen(Color.FromArgb(255, 0, 0, 255), 4);
+            pen.StartCap = LineCap.ArrowAnchor;
+            pen.EndCap = LineCap.RoundAnchor;
+            gr.DrawLine(pen, 20, 175, 300, 15);//(ручка, x1,y1. x2,y2)
+        }
+
+
     }
 }

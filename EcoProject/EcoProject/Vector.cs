@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcoProject
+
+namespace DelaunayTriangulator
 {
-    class Vector
+    public class Vector
     {
         public float x, y;
 
