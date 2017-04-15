@@ -50,6 +50,8 @@ namespace EcoProject
                                 if (triangles[i].edgemas[ik].Equals(triangles[j].edgemas[jk]))
                                 {
                                     unix = false;
+                                    triangles[i].edgemas[ik].brother = triangles[j].edgemas[jk];
+                                    triangles[j].edgemas[jk].brother = triangles[i].edgemas[jk];
                                 }
                             }
                         }

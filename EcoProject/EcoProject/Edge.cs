@@ -10,6 +10,7 @@ namespace DelaunayTriangulator
     {
         public Vertex vert1;
         public Vertex vert2;
+        public Edge brother;
 
         public float Volume { get; set; }
         public float Density { get; set; }

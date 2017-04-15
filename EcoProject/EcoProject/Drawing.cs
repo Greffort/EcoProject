@@ -147,7 +147,12 @@ namespace EcoProject
             gr.DrawLine(somePen, edge.vert1.x, edge.vert1.y, edge.vert2.x, edge.vert2.y);
         }
 
-        public void drawEdge(DelaunayTriangulator.Triangle tr)
+        public void drawEdge(DelaunayTriangulator.Edge edge, Pen pen)
+        {
+            gr.DrawLine(pen, edge.vert1.x, edge.vert1.y, edge.vert2.x, edge.vert2.y);
+        }
+
+        public void drawTriangle(DelaunayTriangulator.Triangle tr)
         {
             gr.DrawLine(darkGoldPen, tr.M1.x, tr.M1.y, tr.M2.x, tr.M2.y);
             gr.DrawLine(darkGoldPen, tr.M2.x, tr.M2.y, tr.M3.x, tr.M3.y);

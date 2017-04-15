@@ -300,7 +300,7 @@ namespace EcoProject
                 foreach (DelaunayTriangulator.Triangle t in tr)
                 {
 
-                    G.drawEdge(t);
+                    G.drawTriangle(t);
                     richTextBox1.Text += t.ToString();
                 }
 
@@ -321,6 +321,7 @@ namespace EcoProject
                     for (int i = 0; i < t.edgemas.Length; i++)
                     {
                         if (t.edgemas[i].Density == 1) G.drawEdge(t.edgemas[i]);
+                        if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
                     }
 
                     G.drawVector(t);
