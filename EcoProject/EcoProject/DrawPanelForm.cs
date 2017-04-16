@@ -301,7 +301,7 @@ namespace EcoProject
                 {
 
                     G.drawTriangle(t);
-                    richTextBox1.Text += t.ToString();
+                   
                 }
 
                 //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
@@ -313,6 +313,7 @@ namespace EcoProject
                 sp.Start();
                 Program.monitor.GetArrayOfOutsideEdge();
                 sp.Stop();
+
 
                 MessageBox.Show(sp.Elapsed.Milliseconds.ToString());
 
@@ -327,7 +328,17 @@ namespace EcoProject
                     G.drawVector(t);
 
                 }
+
+                Program.monitor.AllDensities();
+
+                foreach (Triangle t in Program.monitor.triangles)
+                {
+                    G.BrushTriangle(t);
+                    richTextBox1.Text += t.ToString();
+                }
                 sheet.Image = G.GetBitmap();
+
+                
             }
             else
             {

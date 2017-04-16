@@ -53,3 +53,9 @@ C:\represitory\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.DrawPanelFo
 C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\bin\Debug\EcoProject.exe.config
 C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.exe
 C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.pdb
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\bin\Debug\EcoProject.exe
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\bin\Debug\EcoProject.pdb
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.csprojResolveAssemblyReference.cache
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.DrawPanelForm.resources
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.Properties.Resources.resources
+C:\Users\sv\Desktop\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.csproj.GenerateResource.Cache

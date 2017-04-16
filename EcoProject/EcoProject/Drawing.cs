@@ -210,5 +210,16 @@ namespace EcoProject
                 matrix[E[i].v2, E[i].v1] = 1;
             }
         }
+
+        public void BrushTriangle(DelaunayTriangulator.Triangle triangle)
+        {
+            Point[] myPoints1 = { new Point((int)Math.Truncate(triangle.M1.x), (int)Math.Truncate(triangle.M1.y)), new Point((int)Math.Truncate(triangle.M2.x), (int)Math.Truncate(triangle.M2.y)), new Point((int)Math.Truncate(triangle.M3.x), (int)Math.Truncate(triangle.M3.y)) };
+            //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1); 
+            int i = (int) Math.Truncate((1 - triangle.DensityOfTriangle) * 255);
+            SolidBrush redBrush = new SolidBrush(Color.FromArgb(i, i, i));
+                GraphicsPath graphPath = new GraphicsPath();
+            graphPath.AddPolygon(myPoints1);
+            gr.FillPath(redBrush, graphPath);
+        }
     }
 }

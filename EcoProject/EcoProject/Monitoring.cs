@@ -67,10 +67,18 @@ namespace EcoProject
         }
 
 
+        public void AllDensities()
+        {
+            while (!this.СalculationOfDensities())
+            {
+                
+            }
+        }
 
-        public void СalculationOfAllDensities()
+        public bool СalculationOfDensities()
         {
             bool flag = true;
+            bool isEverythingDone = true;
             float DensityAndVolumes = 0f;
             float Volumes = 0f;
 
@@ -82,7 +90,11 @@ namespace EcoProject
                 {
                     if (triangles[i].edgemas[j].Volume > 0)
                     {
-                        if (triangles[i].edgemas[j].Density < 0) flag = false;
+                        if (triangles[i].edgemas[j].Density < 0)
+                        {
+                            flag = false;
+                            isEverythingDone = false;
+                        }
                         else
                         {
                             DensityAndVolumes += triangles[i].edgemas[j].Volume * triangles[i].edgemas[j].Density;
@@ -99,7 +111,26 @@ namespace EcoProject
 
                     foreach (DelaunayTriangulator.Edge item in triangles[i].edgemas)
                     {
-                        if (item.Density == 0) item.Density = triangles[i].DensityOfTriangle;
+                        if (item.Volume < 0)
+                        {
+                            item.Density = triangles[i].DensityOfTriangle;
+
+                            if (item.brother != null)
+                            {
+                                item.brother.Density = item.Density;
+                            }
+
+                        }
+                        else
+                        {
+                            if (item.Density == 0)
+                            {
+                                if (item.brother != null)
+                                {
+                                    item.Density = item.brother.Density;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -107,6 +138,7 @@ namespace EcoProject
                 Volumes = 0f;
                 DensityAndVolumes = 0f;
             }
+            return isEverythingDone;
         }
 
     }
