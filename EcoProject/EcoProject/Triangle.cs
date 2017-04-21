@@ -241,9 +241,9 @@ namespace DelaunayTriangulator
         public override string ToString()
         {
             string s = "Вершины: \n";
-            s += "E[0]: (" + this.edgemas[0].vert1.x + "; " + this.edgemas[0].vert1.y + ")   " + "(" + this.edgemas[0].vert2.x + "; " + this.edgemas[0].vert2.y + ") Плотность: "+ this.edgemas[0].Density + "\n";
-            s += "E[1]: (" + this.edgemas[1].vert1.x + "; " + this.edgemas[1].vert1.y + ")   " + "(" + this.edgemas[1].vert2.x + "; " + this.edgemas[1].vert2.y + ") Плотность: " + this.edgemas[1].Density + "\n";
-            s += "E[2]: (" + this.edgemas[2].vert1.x + "; " + this.edgemas[2].vert1.y + ")   " + "(" + this.edgemas[2].vert2.x + "; " + this.edgemas[2].vert2.y + ") Плотность: " + this.edgemas[2].Density + "\n";
+            s += "E[0]: (" + this.edgemas[0].vert1.x + "; " + this.edgemas[0].vert1.y + ")   " + "(" + this.edgemas[0].vert2.x + "; " + this.edgemas[0].vert2.y + ") Плотность: "+ this.edgemas[0].Density + " Объём: " + this.edgemas[0].Volume + "\n";
+            s += "E[1]: (" + this.edgemas[1].vert1.x + "; " + this.edgemas[1].vert1.y + ")   " + "(" + this.edgemas[1].vert2.x + "; " + this.edgemas[1].vert2.y + ") Плотность: " + this.edgemas[1].Density + " Объём: " + this.edgemas[1].Volume + "\n";
+            s += "E[2]: (" + this.edgemas[2].vert1.x + "; " + this.edgemas[2].vert1.y + ")   " + "(" + this.edgemas[2].vert2.x + "; " + this.edgemas[2].vert2.y + ") Плотность: " + this.edgemas[2].Density + " Объём: " + this.edgemas[2].Volume + "\n";
             s += "Плотность треугольника: "+this.DensityOfTriangle+ "\n";
             return s;
         }
