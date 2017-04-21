@@ -163,7 +163,7 @@ namespace EcoProject
         public void drawVector(DelaunayTriangulator.Triangle tr)
         {
             Pen pen = new Pen(Color.Green);
-            pen.Width = 3;
+            pen.Width = 2;
             pen.StartCap = LineCap.RoundAnchor;
             pen.EndCap = LineCap.ArrowAnchor;
             gr.DrawLine(pen, tr.M1.x, tr.M1.y, tr.M1.x + tr.M1.Vector.x, tr.M1.y + tr.M1.Vector.y);
