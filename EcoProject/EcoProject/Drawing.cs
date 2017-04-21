@@ -164,9 +164,9 @@ namespace EcoProject
         {
             Pen pen = new Pen(Color.Green);
             pen.Width = 3;
-            pen.StartCap = LineCap.ArrowAnchor;
-            pen.EndCap = LineCap.RoundAnchor;
-            gr.DrawLine(pen, tr.M1.x, tr.M1.y, tr.M1.x+tr.M1.Vector.x, tr.M1.y + tr.M1.Vector.y);
+            pen.StartCap = LineCap.RoundAnchor;
+            pen.EndCap = LineCap.ArrowAnchor;
+            gr.DrawLine(pen, tr.M1.x, tr.M1.y, tr.M1.x + tr.M1.Vector.x, tr.M1.y + tr.M1.Vector.y);
             gr.DrawLine(pen, tr.M2.x, tr.M2.y, tr.M2.x + tr.M2.Vector.x, tr.M2.y + tr.M2.Vector.y);
             gr.DrawLine(pen, tr.M3.x, tr.M3.y, tr.M3.x + tr.M3.Vector.x, tr.M3.y + tr.M3.Vector.y);
         }
@@ -209,6 +209,17 @@ namespace EcoProject
                 matrix[E[i].v1, E[i].v2] = 1;
                 matrix[E[i].v2, E[i].v1] = 1;
             }
+        }
+
+        public void BrushTriangle(DelaunayTriangulator.Triangle triangle)
+        {
+            PointF[] myPoints1 = { new PointF(triangle.M1.x, triangle.M1.y), new PointF(triangle.M2.x, triangle.M2.y), new PointF(triangle.M3.x, triangle.M3.y) };
+            //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1); 
+            int i = (int) Math.Truncate((1 - triangle.DensityOfTriangle) * 255);
+            SolidBrush redBrush = new SolidBrush(Color.FromArgb(i, i, i));
+                GraphicsPath graphPath = new GraphicsPath();
+            graphPath.AddPolygon(myPoints1);
+            gr.FillPath(redBrush, graphPath);
         }
     }
 }
