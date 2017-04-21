@@ -60,6 +60,7 @@ namespace EcoProject
                     if (unix)
                     {
                         triangles[i].edgemas[ik].Density = 1f;
+                        triangles[i].edgemas[ik].isOuside = true;
                     }
                     
                 }

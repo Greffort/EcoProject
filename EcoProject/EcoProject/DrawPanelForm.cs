@@ -276,7 +276,6 @@ namespace EcoProject
 
             if (flagempty)
             {
-
                 DelaunayTriangulator.Triangulator triangulate = new DelaunayTriangulator.Triangulator();
                 List<DelaunayTriangulator.Vertex> listvertex = new List<DelaunayTriangulator.Vertex>();
                
@@ -289,56 +288,50 @@ namespace EcoProject
                     float x =Convert.ToSingle(dataGridView1.Rows[i].Cells[2].Value.ToString());
                     float y = Convert.ToSingle(dataGridView1.Rows[i].Cells[3].Value.ToString());
                     listvertex[i].Vector = new Vector(x, y);
-
-            
-                  
                 }
 
                 List<DelaunayTriangulator.Triangle> tr = triangulate.Triangulation(listvertex);
 
-
-                foreach (DelaunayTriangulator.Triangle t in tr)
-                {
-
-                    G.drawTriangle(t);
-                   
-                }
-
-                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
-                //т.е. Equals для треугольников, который сравнивает по вершинам.
-
                 Program.monitor = new Monitoring(tr);
 
+                Program.monitor.GetArrayOfOutsideEdge();
+                Program.monitor.AllDensities();
                 Stopwatch sp = new Stopwatch();
                 sp.Start();
-                Program.monitor.GetArrayOfOutsideEdge();
+              
                 sp.Stop();
-
-
-                MessageBox.Show(sp.Elapsed.Milliseconds.ToString());
-
-                foreach (DelaunayTriangulator.Triangle t in tr)
-                {
-                    for (int i = 0; i < t.edgemas.Length; i++)
-                    {
-                        if (t.edgemas[i].Density == 1) G.drawEdge(t.edgemas[i]);
-                        if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
-                    }
-
-                    G.drawVector(t);
-
-                }
-
-                Program.monitor.AllDensities();
 
                 foreach (Triangle t in Program.monitor.triangles)
                 {
                     G.BrushTriangle(t);
                     richTextBox1.Text += t.ToString();
                 }
-                sheet.Image = G.GetBitmap();
 
+                foreach (DelaunayTriangulator.Triangle t in tr)
+                {
+                    G.drawTriangle(t);
+                }
+
+                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
+                //т.е. Equals для треугольников, который сравнивает по вершинам.
                 
+
+                MessageBox.Show(sp.Elapsed.Milliseconds.ToString());
+                
+                foreach (DelaunayTriangulator.Triangle t in tr)
+                {
+                    for (int i = 0; i < t.edgemas.Length; i++)
+                    {
+                        if (t.edgemas[i].isOuside) G.drawEdge(t.edgemas[i]);
+                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
+                    }
+                    G.drawVector(t);
+                }
+
+        
+
+               
+                sheet.Image = G.GetBitmap();
             }
             else
             {

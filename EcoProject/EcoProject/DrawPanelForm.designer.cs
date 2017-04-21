@@ -100,16 +100,16 @@
             // 
             this.sheet.BackColor = System.Drawing.SystemColors.Control;
             this.sheet.Image = global::EcoProject.Properties.Resources.cursor;
-            this.sheet.Location = new System.Drawing.Point(129, 12);
+            this.sheet.Location = new System.Drawing.Point(62, 12);
             this.sheet.Name = "sheet";
-            this.sheet.Size = new System.Drawing.Size(506, 399);
+            this.sheet.Size = new System.Drawing.Size(628, 438);
             this.sheet.TabIndex = 0;
             this.sheet.TabStop = false;
             this.sheet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sheet_MouseClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(10, 365);
+            this.button1.Location = new System.Drawing.Point(11, 404);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(46, 46);
             this.button1.TabIndex = 15;
@@ -119,7 +119,7 @@
             // 
             // detail_btn
             // 
-            this.detail_btn.Location = new System.Drawing.Point(12, 435);
+            this.detail_btn.Location = new System.Drawing.Point(10, 456);
             this.detail_btn.Name = "detail_btn";
             this.detail_btn.Size = new System.Drawing.Size(129, 23);
             this.detail_btn.TabIndex = 16;
@@ -130,13 +130,15 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(664, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(696, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(447, 281);
             this.dataGridView1.TabIndex = 17;
@@ -163,9 +165,12 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(664, 326);
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Location = new System.Drawing.Point(696, 304);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(370, 110);
+            this.richTextBox1.Size = new System.Drawing.Size(447, 175);
             this.richTextBox1.TabIndex = 18;
             this.richTextBox1.Text = "";
             // 
@@ -173,6 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1155, 491);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.dataGridView1);
@@ -186,6 +192,7 @@
             this.Controls.Add(this.sheet);
             this.Name = "DrawPanelForm";
             this.Text = "Eco";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

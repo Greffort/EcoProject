@@ -213,7 +213,7 @@ namespace EcoProject
 
         public void BrushTriangle(DelaunayTriangulator.Triangle triangle)
         {
-            Point[] myPoints1 = { new Point((int)Math.Truncate(triangle.M1.x), (int)Math.Truncate(triangle.M1.y)), new Point((int)Math.Truncate(triangle.M2.x), (int)Math.Truncate(triangle.M2.y)), new Point((int)Math.Truncate(triangle.M3.x), (int)Math.Truncate(triangle.M3.y)) };
+            PointF[] myPoints1 = { new PointF(triangle.M1.x, triangle.M1.y), new PointF(triangle.M2.x, triangle.M2.y), new PointF(triangle.M3.x, triangle.M3.y) };
             //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1); 
             int i = (int) Math.Truncate((1 - triangle.DensityOfTriangle) * 255);
             SolidBrush redBrush = new SolidBrush(Color.FromArgb(i, i, i));
