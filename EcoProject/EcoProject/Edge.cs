@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DelaunayTriangulator
+namespace EcoProject
 {
  public   class Edge
     {
-        public Vertex vert1;
-        public Vertex vert2;
+        public Vertex V1;
+        public Vertex V2;
         public Edge brother;
-        public bool isOuside = false;
+        public bool isOutside = false;
 
         public float Volume { get; set; }
         public float Density { get; set; }
 
         public Edge(Vertex v1, Vertex v2)
         {
-            this.vert1 = v1;
-            this.vert2 = v2;
+            this.V1 = v1;
+            this.V2 = v2;
         }
         public override bool Equals(object obj)
         {
@@ -29,18 +29,18 @@ namespace DelaunayTriangulator
 
             if (edgeObj == null)
                 return false;
-            if (this.vert1.Equals(edgeObj.vert1))
+            if (this.V1.Equals(edgeObj.V1))
             {
-                if (this.vert2.Equals(edgeObj.vert2))
+                if (this.V2.Equals(edgeObj.V2))
                 {
                     trushka = true;
                 }
             }
             else
             {
-                if (this.vert1.Equals(edgeObj.vert2))
+                if (this.V1.Equals(edgeObj.V2))
                 {
-                    if (this.vert2.Equals(edgeObj.vert1))
+                    if (this.V2.Equals(edgeObj.V1))
                     {
                         trushka = true;
                     }

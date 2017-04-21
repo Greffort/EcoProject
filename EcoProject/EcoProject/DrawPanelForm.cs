@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
-using DelaunayTriangulator;
 using System.Diagnostics;
 
 namespace EcoProject
@@ -17,9 +16,10 @@ namespace EcoProject
     public partial class DrawPanelForm : Form
     {
         Graph graph;
-        DrawGraph G;
+        Drawing draw;
         List<Vertex> V;
         List<Edge> E;
+        List<Triangle> Triangles;
         
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
@@ -28,10 +28,10 @@ namespace EcoProject
         {
             InitializeComponent();
             V = new List<Vertex>();
-            G = new DrawGraph(sheet.Width, sheet.Height);
+            draw = new Drawing(sheet.Width, sheet.Height);
             E = new List<Edge>();
-            graph = new Graph();
-            sheet.Image = G.GetBitmap();
+            //graph = new Graph();
+            sheet.Image = draw.GetBitmap();
 
             selectButton.Visible = false;
             drawEdgeButton.Visible = false;
@@ -46,9 +46,9 @@ namespace EcoProject
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
-            G.clearSheet();
-            G.drawALLGraph(V, E);
-            sheet.Image = G.GetBitmap();
+            draw.clearSheet();
+            draw.drawALLGraph(graph);
+            sheet.Image = draw.GetBitmap();
             selected1 = -1;
         }
 
@@ -59,23 +59,9 @@ namespace EcoProject
             selectButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
-            G.clearSheet();
-            G.drawALLGraph(V, E);
-            sheet.Image = G.GetBitmap();
-        }
-
-        //кнопка - рисовать ребро
-        private void drawEdgeButton_Click(object sender, EventArgs e)
-        {
-            drawEdgeButton.Enabled = false;
-            selectButton.Enabled = true;
-            drawVertexButton.Enabled = true;
-            deleteButton.Enabled = true;
-            G.clearSheet();
-            G.drawALLGraph(V, E);
-            sheet.Image = G.GetBitmap();
-            selected1 = -1;
-            selected2 = -1;
+            draw.clearSheet();
+            //draw.drawALLGraph(graph);
+            sheet.Image = draw.GetBitmap();
         }
 
         //кнопка - удалить элемент
@@ -85,9 +71,9 @@ namespace EcoProject
             selectButton.Enabled = true;
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
-            G.clearSheet();
-            G.drawALLGraph(V, E);
-            sheet.Image = G.GetBitmap();
+            draw.clearSheet();
+            draw.drawALLGraph(graph);
+            sheet.Image = draw.GetBitmap();
         }
 
         //кнопка - удалить граф
@@ -104,96 +90,34 @@ namespace EcoProject
             {
                 V.Clear();
                 E.Clear();
-                G.clearSheet();
-                sheet.Image = G.GetBitmap();
+                draw.clearSheet();
+                sheet.Image = draw.GetBitmap();
             }
         }
 
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
-            //нажата кнопка "выбрать вершину", ищем степень вершины
+            //нажата кнопка "выбрать вершину"
             if (selectButton.Enabled == false)
             {
                 for (int i = 0; i < V.Count; i++)
                 {
-                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= draw.R * draw.R) // Поиск нажатой вершины
                     {
-                        if (selected1 != -1)
-                        {
-                            selected1 = -1;
-                            G.clearSheet();
-                            G.drawALLGraph(V, E);
-                            sheet.Image = G.GetBitmap();
-                        }
-                        if (selected1 == -1)
-                        {
-                            G.drawSelectedVertex(V[i].x, V[i].y);
-                            selected1 = i;
-                            sheet.Image = G.GetBitmap();
-                            break;
-                        }
+                        // Написать метод, чтобы при нажатии вершины всплывало окошко, где можно было бы изменить координаты вершины и вектора
                     }
                 }
             }
             //нажата кнопка "рисовать вершину"
             if (drawVertexButton.Enabled == false)
             {
-                sheet.Image = G.GetBitmap();
+                Vertex vert = new Vertex(e.X, e.Y);
+                V.Add(vert);
+                draw.drawVertex(vert, V.Count.ToString());              
+                dataGridView1.Rows.Add(V.Count.ToString(), vert);
+                sheet.Image = draw.GetBitmap();
+            }
 
-                
-                graph.vertex.Add(new Vertex(e.X, e.Y));
-                graph.verteex.Add(new DelaunayTriangulator.Vertex(e.X, e.Y));
-                graph.vertex.Sort();
-                G.clearSheet();
-                G.drawALLGraph(graph.vertex, graph.edges);
-                dataGridView1.Rows.Clear();
-                for (int i = 0; i < graph.verteex.Count; i++)
-                {
-                    dataGridView1.Rows.Add(i+1, graph.verteex[i]);
-                }
-                sheet.Image = G.GetBitmap();
-            }
-            //нажата кнопка "рисовать ребро"
-            if (drawEdgeButton.Enabled == false)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    for (int i = 0; i < V.Count; i++)
-                    {
-                        if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
-                        {
-                            if (selected1 == -1)
-                            {
-                                G.drawSelectedVertex(V[i].x, V[i].y);
-                                selected1 = i;
-                                sheet.Image = G.GetBitmap();
-                                break;
-                            }
-                            if (selected2 == -1)
-                            {
-                                G.drawSelectedVertex(V[i].x, V[i].y);
-                                selected2 = i;
-                                E.Add(new Edge(selected1, selected2));
-                                G.drawEdge(V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
-                                selected1 = -1;
-                                selected2 = -1;
-                                sheet.Image = G.GetBitmap();
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (e.Button == MouseButtons.Right)
-                {
-                    if ((selected1 != -1) &&
-                        (Math.Pow((V[selected1].x - e.X), 2) + Math.Pow((V[selected1].y - e.Y), 2) <= G.R * G.R))
-                    {
-                        G.drawVertex(V[selected1].x, V[selected1].y, (selected1 + 1).ToString());
-                        selected1 = -1;
-                        sheet.Image = G.GetBitmap();
-                    }
-                }
-            }
             //нажата кнопка "удалить элемент"
             if (deleteButton.Enabled == false)
             {
@@ -201,72 +125,84 @@ namespace EcoProject
                 //ищем, возможно была нажата вершина
                 for (int i = 0; i < V.Count; i++)
                 {
-                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= draw.R * draw.R) // Поиск нажатой вершины
                     {
-                        for (int j = 0; j < E.Count; j++)
-                        {
-                            if ((E[j].v1 == i) || (E[j].v2 == i))
-                            {
-                                E.RemoveAt(j);
-                                j--;
-                            }
-                            else
-                            {
-                                if (E[j].v1 > i) E[j].v1--;
-                                if (E[j].v2 > i) E[j].v2--;
-                            }
-                        }
-                        V.RemoveAt(i);
-                        flag = true;
-                        break;
-                    }
-                }
-                //ищем, возможно было нажато ребро
-                if (!flag)
-                {
-                    for (int i = 0; i < E.Count; i++)
-                    {
-                        if (E[i].v1 == E[i].v2) //если это петля
-                        {
-                            if ((Math.Pow((V[E[i].v1].x - G.R - e.X), 2) + Math.Pow((V[E[i].v1].y - G.R - e.Y), 2) <= ((G.R + 2) * (G.R + 2))) &&
-                                (Math.Pow((V[E[i].v1].x - G.R - e.X), 2) + Math.Pow((V[E[i].v1].y - G.R - e.Y), 2) >= ((G.R - 2) * (G.R - 2))))
-                            {
-                                E.RemoveAt(i);
-                                flag = true;
-                                break;
-                            }
-                        }
-                        else //не петля
-                        {
-                            if (((e.X - V[E[i].v1].x) * (V[E[i].v2].y - V[E[i].v1].y) / (V[E[i].v2].x - V[E[i].v1].x) + V[E[i].v1].y) <= (e.Y + 4) &&
-                                ((e.X - V[E[i].v1].x) * (V[E[i].v2].y - V[E[i].v1].y) / (V[E[i].v2].x - V[E[i].v1].x) + V[E[i].v1].y) >= (e.Y - 4))
-                            {
-                                if ((V[E[i].v1].x <= V[E[i].v2].x && V[E[i].v1].x <= e.X && e.X <= V[E[i].v2].x) ||
-                                    (V[E[i].v1].x >= V[E[i].v2].x && V[E[i].v1].x >= e.X && e.X >= V[E[i].v2].x))
-                                {
-                                    E.RemoveAt(i);
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                        }
+                        // Написать метод удаления вершны
                     }
                 }
                 //если что-то было удалено, то обновляем граф на экране
                 if (flag)
                 {
-                    G.clearSheet();
-                    G.drawALLGraph(V, E);
-                    sheet.Image = G.GetBitmap();
+                    draw.clearSheet();
+                    draw.drawALLGraph(graph);
+                    sheet.Image = draw.GetBitmap();
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (IsTableFilled())
+            {
+                Triangulator triangulate = new Triangulator();
+                List<Vertex> listvertex = new List<Vertex>();
+
+                SetVectors();
+                foreach (Vertex vert in V)
+                {
+                    draw.drawVector(vert);
+                }
+                List<Triangle> tr = triangulate.Triangulation(V);
+                Monitoring monitor = new Monitoring(tr);
+                monitor.GetArrayOfOutsideEdge();
+                monitor.AllDensities();
+                foreach (Triangle t in monitor.triangles)
+                {
+                    draw.BrushTriangle(t);
+                    richTextBox1.Text += t.ToString();
+                }
+
+                foreach (Triangle t in tr)
+                {
+                    draw.drawTriangle(t);
+                }
+
+                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
+                //т.е. Equals для треугольников, который сравнивает по вершинам.
+
+                foreach (Triangle t in tr)
+                {
+                    for (int i = 0; i < t.edgemas.Length; i++)
+                    {
+                        if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
+                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
+                    }
+                }
+                sheet.Image = draw.GetBitmap();
+            }
+            else
+            {
+                MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
+            }
+
+        }
+
+        private void SetVectors()
+        {
+            for (int i = 0; i < V.Count; i++)
+            {
+                //дописать tryparse-условие
+                float x = Convert.ToSingle(dataGridView1.Rows[i].Cells[2].Value.ToString());
+                float y = Convert.ToSingle(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                V[i].Vector = new Vector(x, y);
+            }
+        }
+
+        private bool IsTableFilled()
+        {
             bool flagempty = true;
 
-            for (int i = 0; i <dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 if (dataGridView1.Rows[i].Cells[2].Value == null || dataGridView1.Rows[i].Cells[3].Value == null)
                 {
@@ -274,70 +210,7 @@ namespace EcoProject
                 }
             }
 
-            if (flagempty)
-            {
-                DelaunayTriangulator.Triangulator triangulate = new DelaunayTriangulator.Triangulator();
-                List<DelaunayTriangulator.Vertex> listvertex = new List<DelaunayTriangulator.Vertex>();
-               
-
-                for (int i = 0; i < graph.verteex.Count; i++)
-                {
-                    listvertex.Add(graph.verteex[i]);
-
-                    //дописать tryparse-условие
-                    float x =Convert.ToSingle(dataGridView1.Rows[i].Cells[2].Value.ToString());
-                    float y = Convert.ToSingle(dataGridView1.Rows[i].Cells[3].Value.ToString());
-                    listvertex[i].Vector = new Vector(x, y);
-                }
-
-                List<DelaunayTriangulator.Triangle> tr = triangulate.Triangulation(listvertex);
-
-                Program.monitor = new Monitoring(tr);
-
-                Program.monitor.GetArrayOfOutsideEdge();
-                Program.monitor.AllDensities();
-                Stopwatch sp = new Stopwatch();
-                sp.Start();
-              
-                sp.Stop();
-
-                foreach (Triangle t in Program.monitor.triangles)
-                {
-                    G.BrushTriangle(t);
-                    richTextBox1.Text += t.ToString();
-                }
-
-                foreach (DelaunayTriangulator.Triangle t in tr)
-                {
-                    G.drawTriangle(t);
-                }
-
-                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
-                //т.е. Equals для треугольников, который сравнивает по вершинам.
-                
-
-                MessageBox.Show(sp.Elapsed.Milliseconds.ToString());
-                
-                foreach (DelaunayTriangulator.Triangle t in tr)
-                {
-                    for (int i = 0; i < t.edgemas.Length; i++)
-                    {
-                        if (t.edgemas[i].isOuside) G.drawEdge(t.edgemas[i]);
-                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
-                    }
-                    G.drawVector(t);
-                }
-
-        
-
-               
-                sheet.Image = G.GetBitmap();
-            }
-            else
-            {
-                MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
-            }
-            
+            return flagempty;
         }
 
         private void detail_btn_Click(object sender, EventArgs e)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DelaunayTriangulator;
 
 namespace EcoProject
 {
@@ -60,7 +59,7 @@ namespace EcoProject
                     if (unix)
                     {
                         triangles[i].edgemas[ik].Density = 1f;
-                        triangles[i].edgemas[ik].isOuside = true;
+                        triangles[i].edgemas[ik].isOutside = true;
                     }
                     
                 }
@@ -110,7 +109,7 @@ namespace EcoProject
 
                     triangles[i].DensityOfTriangle = DensityAndVolumes / Volumes;
 
-                    foreach (DelaunayTriangulator.Edge item in triangles[i].edgemas)
+                    foreach (Edge item in triangles[i].edgemas)
                     {
                         if (item.Volume < 0)
                         {

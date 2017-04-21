@@ -12,7 +12,7 @@ using EcoProject;
 */
 
 
-namespace DelaunayTriangulator
+namespace EcoProject
 {
     
         class Triangulator

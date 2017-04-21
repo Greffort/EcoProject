@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DelaunayTriangulator
+namespace EcoProject
 {
     public class Vector
     {
@@ -71,5 +71,6 @@ namespace DelaunayTriangulator
 
             return objresult;
         }
+
     }
 }

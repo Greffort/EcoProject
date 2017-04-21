@@ -76,16 +76,6 @@
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
-            // drawEdgeButton
-            // 
-            this.drawEdgeButton.Image = global::EcoProject.Properties.Resources.edge;
-            this.drawEdgeButton.Location = new System.Drawing.Point(11, 138);
-            this.drawEdgeButton.Name = "drawEdgeButton";
-            this.drawEdgeButton.Size = new System.Drawing.Size(45, 45);
-            this.drawEdgeButton.TabIndex = 2;
-            this.drawEdgeButton.UseVisualStyleBackColor = true;
-            this.drawEdgeButton.Click += new System.EventHandler(this.drawEdgeButton_Click);
-            // 
             // drawVertexButton
             // 
             this.drawVertexButton.Image = global::EcoProject.Properties.Resources.vertex;
