@@ -142,7 +142,7 @@ namespace EcoProject
                 Triangulator triangulate = new Triangulator();
                 List<Vertex> listvertex = new List<Vertex>();
 
-                //SetVectors();
+                SetVectors();
                 List<Triangle> tr = triangulate.Triangulation(V);
                 Monitoring monitor = new Monitoring(tr);
                 monitor.GetArrayOfOutsideEdge();

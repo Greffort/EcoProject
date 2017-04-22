@@ -80,7 +80,7 @@
             // drawVertexButton
             // 
             this.drawVertexButton.Image = global::EcoProject.Properties.Resources.vertex;
-            this.drawVertexButton.Location = new System.Drawing.Point(11, 12);
+            this.drawVertexButton.Location = new System.Drawing.Point(12, 12);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(45, 45);
             this.drawVertexButton.TabIndex = 1;
@@ -89,7 +89,7 @@
             // 
             // sheet
             // 
-            this.sheet.BackColor = System.Drawing.SystemColors.Control;
+            this.sheet.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.sheet.Image = global::EcoProject.Properties.Resources.cursor;
             this.sheet.Location = new System.Drawing.Point(62, 12);
             this.sheet.Name = "sheet";
@@ -100,7 +100,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(11, 404);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(12, 404);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(46, 46);
             this.button1.TabIndex = 15;
@@ -110,7 +111,8 @@
             // 
             // detail_btn
             // 
-            this.detail_btn.Location = new System.Drawing.Point(10, 456);
+            this.detail_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.detail_btn.Location = new System.Drawing.Point(12, 456);
             this.detail_btn.Name = "detail_btn";
             this.detail_btn.Size = new System.Drawing.Size(129, 23);
             this.detail_btn.TabIndex = 16;
@@ -167,7 +169,8 @@
             // 
             // AddVertex_button
             // 
-            this.AddVertex_button.Location = new System.Drawing.Point(145, 456);
+            this.AddVertex_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.AddVertex_button.Location = new System.Drawing.Point(147, 456);
             this.AddVertex_button.Name = "AddVertex_button";
             this.AddVertex_button.Size = new System.Drawing.Size(98, 23);
             this.AddVertex_button.TabIndex = 20;
@@ -175,7 +178,8 @@
             // 
             // example_button
             // 
-            this.example_button.Location = new System.Drawing.Point(249, 456);
+            this.example_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.example_button.Location = new System.Drawing.Point(251, 456);
             this.example_button.Name = "example_button";
             this.example_button.Size = new System.Drawing.Size(98, 23);
             this.example_button.TabIndex = 21;
@@ -201,6 +205,7 @@
             this.Controls.Add(this.sheet);
             this.Name = "DrawPanelForm";
             this.Text = "Eco";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
