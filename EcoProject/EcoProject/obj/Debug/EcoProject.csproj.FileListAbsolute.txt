@@ -65,3 +65,6 @@ D:\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.csprojResolveAssemblyRe
 D:\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.DrawPanelForm.resources
 D:\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.Properties.Resources.resources
 D:\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.csproj.GenerateResource.Cache
+D:\Репозитории\EcoProject\EcoProject\EcoProject\bin\Debug\EcoProject.exe.config
+D:\Репозитории\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.exe
+D:\Репозитории\EcoProject\EcoProject\EcoProject\obj\Debug\EcoProject.pdb
