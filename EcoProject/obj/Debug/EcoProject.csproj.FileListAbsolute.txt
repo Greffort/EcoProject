@@ -1,9 +1,0 @@
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\bin\Debug\EcoProject.exe.config
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\bin\Debug\EcoProject.exe
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\bin\Debug\EcoProject.pdb
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.csprojResolveAssemblyReference.cache
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.DrawPanelForm.resources
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.Properties.Resources.resources
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.csproj.GenerateResource.Cache
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.exe
-C:\Users\sv\Desktop\iВолга\Eco-Прочее\BackUp\EcoProject\EcoProject\obj\Debug\EcoProject.pdb
