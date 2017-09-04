@@ -137,46 +137,62 @@ namespace EcoProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (IsTableFilled())
-            {
-                Triangulator triangulate = new Triangulator();
-                List<Vertex> listvertex = new List<Vertex>();
+            //while (true)
+            //{
 
-                SetVectors();
-                List<Triangle> tr = triangulate.Triangulation(V);
-                Monitoring monitor = new Monitoring(tr);
-                monitor.GetArrayOfOutsideEdge();
-                monitor.AllDensities();
-                foreach (Triangle t in monitor.triangles)
+            Thread.Sleep(1000);
+           
+                draw.clearSheet();
+                Example();
+                if (IsTableFilled())
                 {
-                    draw.BrushTriangle(t);
-                    draw.drawTriangle(t);
-                    for (int i = 0; i < t.edgemas.Length; i++)
+
+                    Triangulator triangulate = new Triangulator();
+                    List<Vertex> listvertex = new List<Vertex>();
+
+                    SetVectors();
+                    List<Triangle> tr = triangulate.Triangulation(V);
+                    Monitoring monitor = new Monitoring(tr);
+                    monitor.GetArrayOfOutsideEdge();
+                    monitor.AllDensities();
+                    foreach (Triangle t in monitor.triangles)
                     {
-                        if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
-                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
+                        draw.BrushTriangle(t);
+                        draw.drawTriangle(t);
+                        for (int i = 0; i < t.edgemas.Length; i++)
+                        {
+                            if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
+                            //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
+                        }
+                        richTextBox1.Text += t.ToString();
                     }
-                    richTextBox1.Text += t.ToString();
+                    for (int i = 0; i < V.Count; i++)
+                    {
+                        draw.drawVertex(V[i], (i + 1).ToString());
+                    }
+
+                    //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
+                    //т.е. Equals для треугольников, который сравнивает по вершинам.
+
+                    foreach (Vertex vert in V)
+                    {
+                        draw.drawVector(vert);
+                    }
+                    sheet.Image = draw.GetBitmap();
                 }
-                for (int i = 0; i < V.Count; i++)
+                else
                 {
-                    draw.drawVertex(V[i], (i + 1).ToString());
+                    MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
+
                 }
 
-                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
-                //т.е. Equals для треугольников, который сравнивает по вершинам.
 
-                foreach (Vertex vert in V)
-                {
-                    draw.drawVector(vert);
-                }
-                sheet.Image = draw.GetBitmap();
-            }
-            else
-            {
-                MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
-            }
 
+
+            //}
+
+
+            GC.Collect();
         }
 
         private void SetVectors()
@@ -245,6 +261,80 @@ namespace EcoProject
                 dataGridView1.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
+        }
+
+        private void Example ()
+        {
+            dataGridView1.Rows.Clear();
+            V.Clear();
+            E.Clear();
+            // умножаем все значения на 20
+            float multipl = 20f;
+            Random r1 = new Random();
+            Random r2 = new Random();
+            V.Add(new Vertex(132, 155));
+
+            V[0].Vector = new Vector(1 * multipl*r1.Next(-2,2), -1 * multipl*r2.Next(-1,2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(345, 180));
+            V[1].Vector = new Vector(1 * multipl *r1.Next(-1, 2), 1 * multipl*r2.Next(-2, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(158, 234));
+            V[2].Vector = new Vector(2 * multipl * r1.Next(-1, 2), 1 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(393, 358));
+            V[3].Vector = new Vector(3 * multipl * r1.Next(-1, 2), 0 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(492, 312));
+            V[4].Vector = new Vector(0 * multipl, 0 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(469, 250));
+            V[5].Vector = new Vector(2 * multipl * r1.Next(-1, 2), 1 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(478, 165));
+            V[6].Vector = new Vector(1 * multipl * r1.Next(-1, 2), 0 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(398, 217));
+            V[7].Vector = new Vector(1 * multipl * r1.Next(-1, 2), 2 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+
+            V.Add(new Vertex(315, 258));
+            V[8].Vector = new Vector(3 * multipl * r1.Next(-1, 2), 1 * multipl * r2.Next(-1, 2));
+            Thread.Sleep(12);
+            for (int i = 0; i < V.Count; i++)
+            {
+                draw.drawVertex(V[i], (i + 1).ToString());
+                draw.drawVector(V[i]);
+                dataGridView1.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+            }
+            sheet.Image = draw.GetBitmap();
+
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+           
+        }
+
+        private void DrawPanelForm_Load(object sender, EventArgs e)
+        {
+            detail_btn.Visible = false;
+            AddVertex_button.Visible = false;
+            example_button.Visible = false;
         }
     }
 }

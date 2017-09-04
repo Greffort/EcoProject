@@ -76,57 +76,28 @@ namespace EcoProject
 
         public void AllDensities()
         {
-            //bool end = false;
-            //int f = 0;
-            //while (!end)
-            //{
-            //    СalculationOfDensities();
-            //    end = true;
+            bool end = false;
+            int f = 0;
+            while (!end)
+            {
+                СalculationOfDensities();
+                end = true;
 
-            //    for (int i = 0; i < triangles.Count; i++)
-            //    {
-            //        for (int j = 0; j < 3; j++)
-            //        {
-            //            if (triangles[i].edgemas[j].Density < 0) end = false;
-            //        }
-            //    }
+                for (int i = 0; i < triangles.Count; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (triangles[i].edgemas[j].Density < 0) end = false;
+                    }
+                }
 
-            //    Console.WriteLine(f++);
-            //}
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
+                Console.WriteLine(f++);
+            }
 
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-
-            СalculationOfDensities();
-            СalculationOfDensities();
-            СalculationOfDensities();
-
-
-
-
+            //СalculationOfDensities();
+            //СalculationOfDensities();
+            //СalculationOfDensities();
+            //СalculationOfDensities();
         }
 
         public bool СalculationOfDensities()

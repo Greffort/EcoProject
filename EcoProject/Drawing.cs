@@ -67,7 +67,7 @@ namespace EcoProject
         Font fo;
         Brush br;
         PointF point;
-        public int R = 5; //радиус окружности вершины
+        public int R = 3; //радиус окружности вершины
 
         public Drawing(int width, int height)
         {
@@ -75,15 +75,15 @@ namespace EcoProject
             gr = Graphics.FromImage(bitmap);
             clearSheet();
             blackPen = new Pen(Color.Black);
-            blackPen.Width = 2;
+            blackPen.Width = 1;
             redPen = new Pen(Color.Red);
-            redPen.Width = 2;
+            redPen.Width = 1;
             darkGoldPen = new Pen(Color.DarkGoldenrod);
-            darkGoldPen.Width = 2;
+            darkGoldPen.Width = 1;
 
             somePen = new Pen(Color.IndianRed);
-            somePen.Width = 2;
-            fo = new Font("Arial", 8);
+            somePen.Width = 1;
+            fo = new Font("Segoe UI Light", 6);
             br = Brushes.Black;
         }
 
@@ -94,7 +94,8 @@ namespace EcoProject
 
         public void clearSheet()
         {
-            gr.Clear(Color.AliceBlue);
+            // gr.Clear(Color.AliceBlue);
+            gr.Clear(Color.FromArgb(0,0,0,0));
         }
 
         public void drawVertexName(Vertex vertex, Font font, Brush brush, PointF point)
@@ -131,8 +132,8 @@ namespace EcoProject
 
         public void drawVector(Triangle tr)
         {
-            Pen pen = new Pen(Color.Green);
-            pen.Width = 2;
+            Pen pen = new Pen(Color.Aqua);
+            pen.Width = 1;
             pen.StartCap = LineCap.RoundAnchor;
             pen.EndCap = LineCap.ArrowAnchor;
             gr.DrawLine(pen, tr.M1.x, tr.M1.y, tr.M1.x + tr.M1.Vector.x, tr.M1.y + tr.M1.Vector.y);
@@ -142,8 +143,8 @@ namespace EcoProject
 
         public void drawVector(Vertex v)
         {
-            Pen pen = new Pen(Color.Green);
-            pen.Width = 2;
+            Pen pen = new Pen(Color.Chocolate);
+            pen.Width = 1;
             pen.StartCap = LineCap.RoundAnchor;
             pen.EndCap = LineCap.ArrowAnchor;
             gr.DrawLine(pen, v.x, v.y, v.x + v.Vector.x, v.y + v.Vector.y);
@@ -168,8 +169,9 @@ namespace EcoProject
             PointF[] myPoints1 = { new PointF(triangle.M1.x, triangle.M1.y), new PointF(triangle.M2.x, triangle.M2.y), new PointF(triangle.M3.x, triangle.M3.y) };
             //PathGradientBrush pgradBrush = new PathGradientBrush(myPoints1); 
             int i = (int) Math.Truncate((1 - triangle.DensityOfTriangle) * 255);
-            SolidBrush redBrush = new SolidBrush(Color.FromArgb(i, i, i));
-                GraphicsPath graphPath = new GraphicsPath();
+            //SolidBrush redBrush = new SolidBrush(Color.FromArgb(i, i, i));
+            SolidBrush redBrush = new SolidBrush(Color.FromArgb(123,i,i,i));
+            GraphicsPath graphPath = new GraphicsPath();
             graphPath.AddPolygon(myPoints1);
             gr.FillPath(redBrush, graphPath);
         }
