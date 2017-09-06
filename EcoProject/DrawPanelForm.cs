@@ -192,17 +192,18 @@ namespace EcoProject
 
         private bool IsTableFilled()
         {
-            bool flagempty = true;
-
-            for (int i = 0; i < coordinatesTable.Rows.Count; i++)
+            if (coordinatesTable.Rows.Count > 0)
             {
-                if (coordinatesTable.Rows[i].Cells[2].Value == null || coordinatesTable.Rows[i].Cells[3].Value == null)
+                for (int i = 0; i < coordinatesTable.Rows.Count; i++)
                 {
-                    flagempty = false;
+                    if (coordinatesTable.Rows[i].Cells[2].Value == null || coordinatesTable.Rows[i].Cells[3].Value == null)
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            flagempty = true; // удалить эту строчку
-            return flagempty;
+            return false;
         }
 
         private void detail_btn_Click(object sender, EventArgs e)
