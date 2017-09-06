@@ -138,12 +138,8 @@ namespace EcoProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            draw.clearSheet();
-            Example();
             if (IsTableFilled())
             {
-
                 Triangulator triangulate = new Triangulator();
                 List<Vertex> listvertex = new List<Vertex>();
 
@@ -180,16 +176,8 @@ namespace EcoProject
             else
             {
                 MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
-
             }
 
-
-
-
-            //}
-
-
-            GC.Collect();
         }
 
         private void SetVectors()
