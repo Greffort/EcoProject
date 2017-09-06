@@ -31,7 +31,7 @@ namespace EcoProject
 
 
 
-        // Position and radius squared of circumcircle
+        // Position and radius squared of circumcircle Положение и радиус квадрата окружности
         public float circumcircleR2, circumcircleX, circumcircleY;
 
         public Triangle(int x, int y, int z)
@@ -54,6 +54,7 @@ namespace EcoProject
 
         /// <summary>
         /// If current orientation is not clockwise, swap b<->c
+        /// Если текущая ориентация не по часовой стрелке, замените b <-> c
         /// </summary>
         public void MakeClockwise(List<Vertex> points)
         {
@@ -81,6 +82,9 @@ namespace EcoProject
         /// Find location and radius ^2 of the circumcircle (through all 3 points)
         /// This is the most critical routine in the entire set of code.  It must
         /// be numerically stable when the points are nearly collinear.
+        /// Найдите местоположение и радиус ^ 2 окружности (через все 3 точки)
+        /// Это самая критическая процедура во всем наборе кода. Это должно
+        /// быть численно устойчивым, когда точки почти коллинеарны.
         /// </summary>
         public bool FindCircumcirclePrecisely(List<Vertex> points)
         {
@@ -156,6 +160,7 @@ namespace EcoProject
 
         /// <summary>
         /// Return true iff Vertex p is inside the circumcircle of this triangle
+        /// Возвращает true, если вершина p находится внутри окружности этого треугольника
         /// </summary>
         public bool InsideCircumcircle(Vertex p)
         {
@@ -167,6 +172,7 @@ namespace EcoProject
 
         /// <summary>
         /// Change any adjacent triangle index that matches fromIndex, to toIndex
+        /// Измените любой соседний индекс треугольника, который соответствует fromIndex, toIndex
         /// </summary>
         public void ChangeAdjacentIndex(int fromIndex, int toIndex)
         {
@@ -183,6 +189,8 @@ namespace EcoProject
         /// <summary>
         /// Determine which edge matches the triangleIndex, then which vertex the vertexIndex
         /// Set the indices of the opposite vertex, left and right edges accordingly
+        /// Определите, какая грань соответствует треугольникуIndex, затем какая вершина vertexIndex
+        /// Установить индексы противоположной вершины, соответственно левого и правого краев
         /// </summary>
         public void FindAdjacency(int vertexIndex, int triangleIndex, out int indexOpposite, out int indexLeft, out int indexRight)
         {

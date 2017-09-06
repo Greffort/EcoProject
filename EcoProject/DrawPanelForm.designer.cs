@@ -36,7 +36,7 @@
             this.sheet = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.detail_btn = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.coordinatesTable = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,7 +45,7 @@
             this.AddVertex_button = new System.Windows.Forms.Button();
             this.example_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordinatesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // selectButton
@@ -56,6 +56,7 @@
             this.selectButton.Size = new System.Drawing.Size(45, 45);
             this.selectButton.TabIndex = 9;
             this.selectButton.UseVisualStyleBackColor = true;
+            this.selectButton.Visible = false;
             this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
             // 
             // deleteALLButton
@@ -66,12 +67,13 @@
             this.deleteALLButton.Size = new System.Drawing.Size(45, 45);
             this.deleteALLButton.TabIndex = 5;
             this.deleteALLButton.UseVisualStyleBackColor = true;
+            this.deleteALLButton.Visible = false;
             this.deleteALLButton.Click += new System.EventHandler(this.deleteALLButton_Click);
             // 
             // deleteButton
             // 
             this.deleteButton.Image = global::EcoProject.Properties.Resources.delete;
-            this.deleteButton.Location = new System.Drawing.Point(12, 189);
+            this.deleteButton.Location = new System.Drawing.Point(12, 345);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(45, 45);
             this.deleteButton.TabIndex = 3;
@@ -80,12 +82,14 @@
             // 
             // drawVertexButton
             // 
+            this.drawVertexButton.Enabled = false;
             this.drawVertexButton.Image = global::EcoProject.Properties.Resources.vertex;
             this.drawVertexButton.Location = new System.Drawing.Point(11, 12);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(45, 45);
             this.drawVertexButton.TabIndex = 1;
             this.drawVertexButton.UseVisualStyleBackColor = true;
+            this.drawVertexButton.Visible = false;
             this.drawVertexButton.Click += new System.EventHandler(this.drawVertexButton_Click);
             // 
             // sheet
@@ -122,23 +126,21 @@
             this.detail_btn.UseVisualStyleBackColor = true;
             this.detail_btn.Click += new System.EventHandler(this.detail_btn_Click);
             // 
-            // dataGridView1
+            // coordinatesTable
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.coordinatesTable.AllowUserToAddRows = false;
+            this.coordinatesTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coordinatesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.coordinatesTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(727, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(445, 245);
-            this.dataGridView1.TabIndex = 17;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            this.coordinatesTable.Location = new System.Drawing.Point(727, 12);
+            this.coordinatesTable.Name = "coordinatesTable";
+            this.coordinatesTable.Size = new System.Drawing.Size(445, 245);
+            this.coordinatesTable.TabIndex = 17;
             // 
             // Column1
             // 
@@ -178,6 +180,7 @@
             this.AddVertex_button.Size = new System.Drawing.Size(98, 23);
             this.AddVertex_button.TabIndex = 20;
             this.AddVertex_button.Text = "Добавить точку";
+            this.AddVertex_button.Click += new System.EventHandler(this.AddVertex_button_Click);
             // 
             // example_button
             // 
@@ -197,7 +200,7 @@
             this.Controls.Add(this.example_button);
             this.Controls.Add(this.AddVertex_button);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.coordinatesTable);
             this.Controls.Add(this.detail_btn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.selectButton);
@@ -208,9 +211,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DrawPanelForm";
             this.Text = "iВолга, Инновации и экология";
-            this.Load += new System.EventHandler(this.DrawPanelForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordinatesTable)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -225,7 +227,7 @@
        
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button detail_btn;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView coordinatesTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

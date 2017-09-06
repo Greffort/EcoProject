@@ -98,6 +98,7 @@ namespace EcoProject
             gr.Clear(Color.FromArgb(0,0,0,0));
         }
 
+
         public void drawVertexName(Vertex vertex, Font font, Brush brush, PointF point)
         {
             string str = "(" + vertex.x.ToString() + ";" + vertex.y.ToString() + ")";
@@ -112,6 +113,7 @@ namespace EcoProject
             gr.DrawString(number + " " + point.ToString(), fo, br, point);
         }
 
+
         public void drawEdge(Edge edge)
         {
             gr.DrawLine(somePen, edge.V1.x, edge.V1.y, edge.V2.x, edge.V2.y);
@@ -122,6 +124,7 @@ namespace EcoProject
             gr.DrawLine(pen, edge.V1.x, edge.V1.y, edge.V2.x, edge.V2.y);
         }
 
+
         public void drawTriangle(Triangle tr)
         {
             gr.DrawLine(darkGoldPen, tr.M1.x, tr.M1.y, tr.M2.x, tr.M2.y);
@@ -129,6 +132,7 @@ namespace EcoProject
             gr.DrawLine(darkGoldPen, tr.M3.x, tr.M3.y, tr.M1.x, tr.M1.y);
            
         }
+
 
         public void drawVector(Triangle tr)
         {
@@ -149,6 +153,7 @@ namespace EcoProject
             pen.EndCap = LineCap.ArrowAnchor;
             gr.DrawLine(pen, v.x, v.y, v.x + v.Vector.x, v.y + v.Vector.y);
         }
+
 
         public void drawALLGraph(Graph G)
         {

@@ -20,7 +20,7 @@ namespace EcoProject
         List<Vertex> V;
         List<Edge> E;
         List<Triangle> Triangles;
-        
+
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
 
@@ -32,10 +32,6 @@ namespace EcoProject
             E = new List<Edge>();
             //graph = new Graph();
             sheet.Image = draw.GetBitmap();
-
-            selectButton.Visible = false;
-            deleteALLButton.Visible = false;
-            deleteButton.Visible = false;
         }
 
         //кнопка - выбрать вершину
@@ -64,11 +60,16 @@ namespace EcoProject
         //кнопка - удалить элемент
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            deleteButton.Enabled = false;
-            selectButton.Enabled = true;
-            drawVertexButton.Enabled = true;
+            //deleteButton.Enabled = false;
+            //selectButton.Enabled = true;
+            //drawVertexButton.Enabled = true;
+            //draw.clearSheet();
+            //draw.drawALLGraph(graph);
+            //sheet.Image = draw.GetBitmap();
+
+            V.Clear();
+            E.Clear();
             draw.clearSheet();
-            draw.drawALLGraph(graph);
             sheet.Image = draw.GetBitmap();
         }
 
@@ -108,8 +109,8 @@ namespace EcoProject
             {
                 Vertex vert = new Vertex(e.X, e.Y);
                 V.Add(vert);
-                draw.drawVertex(vert, V.Count.ToString());              
-                dataGridView1.Rows.Add(V.Count.ToString(), vert);
+                draw.drawVertex(vert, V.Count.ToString());
+                coordinatesTable.Rows.Add(V.Count.ToString(), vert);
                 sheet.Image = draw.GetBitmap();
             }
 
@@ -137,54 +138,50 @@ namespace EcoProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //while (true)
-            //{
 
-            Thread.Sleep(1000);
-           
-                draw.clearSheet();
-                Example();
-                if (IsTableFilled())
+            draw.clearSheet();
+            Example();
+            if (IsTableFilled())
+            {
+
+                Triangulator triangulate = new Triangulator();
+                List<Vertex> listvertex = new List<Vertex>();
+
+                SetVectors();
+                List<Triangle> tr = triangulate.Triangulation(V);
+                Monitoring monitor = new Monitoring(tr);
+                monitor.GetArrayOfOutsideEdge();
+                monitor.AllDensities();
+                foreach (Triangle t in monitor.triangles)
                 {
-
-                    Triangulator triangulate = new Triangulator();
-                    List<Vertex> listvertex = new List<Vertex>();
-
-                    SetVectors();
-                    List<Triangle> tr = triangulate.Triangulation(V);
-                    Monitoring monitor = new Monitoring(tr);
-                    monitor.GetArrayOfOutsideEdge();
-                    monitor.AllDensities();
-                    foreach (Triangle t in monitor.triangles)
+                    draw.BrushTriangle(t);
+                    draw.drawTriangle(t);
+                    for (int i = 0; i < t.edgemas.Length; i++)
                     {
-                        draw.BrushTriangle(t);
-                        draw.drawTriangle(t);
-                        for (int i = 0; i < t.edgemas.Length; i++)
-                        {
-                            if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
-                            //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
-                        }
-                        richTextBox1.Text += t.ToString();
+                        if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
+                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
                     }
-                    for (int i = 0; i < V.Count; i++)
-                    {
-                        draw.drawVertex(V[i], (i + 1).ToString());
-                    }
-
-                    //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
-                    //т.е. Equals для треугольников, который сравнивает по вершинам.
-
-                    foreach (Vertex vert in V)
-                    {
-                        draw.drawVector(vert);
-                    }
-                    sheet.Image = draw.GetBitmap();
+                    richTextBox1.Text += t.ToString();
                 }
-                else
+                for (int i = 0; i < V.Count; i++)
                 {
-                    MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
-
+                    draw.drawVertex(V[i], (i + 1).ToString());
                 }
+
+                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
+                //т.е. Equals для треугольников, который сравнивает по вершинам.
+
+                foreach (Vertex vert in V)
+                {
+                    draw.drawVector(vert);
+                }
+                sheet.Image = draw.GetBitmap();
+            }
+            else
+            {
+                MessageBox.Show("Заполните значения векторов", "Ошибка заполнения");
+
+            }
 
 
 
@@ -200,8 +197,8 @@ namespace EcoProject
             for (int i = 0; i < V.Count; i++)
             {
                 //дописать tryparse-условие
-                float x = Convert.ToSingle(dataGridView1.Rows[i].Cells[2].Value.ToString());
-                float y = Convert.ToSingle(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                float x = Convert.ToSingle(coordinatesTable.Rows[i].Cells[2].Value.ToString());
+                float y = Convert.ToSingle(coordinatesTable.Rows[i].Cells[3].Value.ToString());
                 V[i].Vector = new Vector(x, y);
             }
         }
@@ -210,9 +207,9 @@ namespace EcoProject
         {
             bool flagempty = true;
 
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < coordinatesTable.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells[2].Value == null || dataGridView1.Rows[i].Cells[3].Value == null)
+                if (coordinatesTable.Rows[i].Cells[2].Value == null || coordinatesTable.Rows[i].Cells[3].Value == null)
                 {
                     flagempty = false;
                 }
@@ -258,14 +255,14 @@ namespace EcoProject
             {
                 draw.drawVertex(V[i], (i + 1).ToString());
                 draw.drawVector(V[i]);
-                dataGridView1.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+                coordinatesTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
         }
 
-        private void Example ()
+        private void Example()
         {
-            dataGridView1.Rows.Clear();
+            coordinatesTable.Rows.Clear();
             V.Clear();
             E.Clear();
             // умножаем все значения на 20
@@ -274,11 +271,11 @@ namespace EcoProject
             Random r2 = new Random();
             V.Add(new Vertex(132, 155));
 
-            V[0].Vector = new Vector(1 * multipl*r1.Next(-2,2), -1 * multipl*r2.Next(-1,2));
+            V[0].Vector = new Vector(1 * multipl * r1.Next(-2, 2), -1 * multipl * r2.Next(-1, 2));
             Thread.Sleep(12);
 
             V.Add(new Vertex(345, 180));
-            V[1].Vector = new Vector(1 * multipl *r1.Next(-1, 2), 1 * multipl*r2.Next(-2, 2));
+            V[1].Vector = new Vector(1 * multipl * r1.Next(-1, 2), 1 * multipl * r2.Next(-2, 2));
             Thread.Sleep(12);
 
             V.Add(new Vertex(158, 234));
@@ -312,29 +309,16 @@ namespace EcoProject
             {
                 draw.drawVertex(V[i], (i + 1).ToString());
                 draw.drawVector(V[i]);
-                dataGridView1.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+                coordinatesTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
 
-            
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void AddVertex_button_Click(object sender, EventArgs e)
         {
-            
-           
-        }
 
-        private void DrawPanelForm_Load(object sender, EventArgs e)
-        {
-            detail_btn.Visible = false;
-            AddVertex_button.Visible = false;
-            example_button.Visible = false;
         }
     }
 }
