@@ -60,13 +60,12 @@ namespace EcoProject
         //кнопка - удалить элемент
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            //deleteButton.Enabled = false;
-            //selectButton.Enabled = true;
-            //drawVertexButton.Enabled = true;
-            //draw.clearSheet();
-            //draw.drawALLGraph(graph);
-            //sheet.Image = draw.GetBitmap();
+            ClearAll();
+        }
 
+        private void ClearAll()
+        {
+            coordinatesTable.Rows.Clear();
             V.Clear();
             E.Clear();
             draw.clearSheet();
@@ -213,8 +212,7 @@ namespace EcoProject
 
         private void example_button_Click(object sender, EventArgs e)
         {
-            V.Clear();
-            E.Clear();
+            ClearAll();
             // умножаем все значения на 20
             float multipl = 20f;
             V.Add(new Vertex(2 * multipl, 8 * multipl));

@@ -180,6 +180,7 @@
             this.AddVertex_button.Size = new System.Drawing.Size(98, 23);
             this.AddVertex_button.TabIndex = 20;
             this.AddVertex_button.Text = "Добавить точку";
+            this.AddVertex_button.Visible = false;
             this.AddVertex_button.Click += new System.EventHandler(this.AddVertex_button_Click);
             // 
             // example_button
