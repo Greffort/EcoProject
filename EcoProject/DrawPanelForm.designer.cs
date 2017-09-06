@@ -95,7 +95,6 @@
             // sheet
             // 
             this.sheet.BackColor = System.Drawing.Color.White;
-            this.sheet.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sheet.BackgroundImage")));
             this.sheet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.sheet.Image = global::EcoProject.Properties.Resources.cursor;
             this.sheet.Location = new System.Drawing.Point(74, 12);
@@ -118,12 +117,13 @@
             // 
             // detail_btn
             // 
-            this.detail_btn.Location = new System.Drawing.Point(10, 456);
+            this.detail_btn.Location = new System.Drawing.Point(373, 456);
             this.detail_btn.Name = "detail_btn";
             this.detail_btn.Size = new System.Drawing.Size(129, 23);
             this.detail_btn.TabIndex = 16;
             this.detail_btn.Text = "Детализировать";
             this.detail_btn.UseVisualStyleBackColor = true;
+            this.detail_btn.Visible = false;
             this.detail_btn.Click += new System.EventHandler(this.detail_btn_Click);
             // 
             // coordinatesTable
@@ -169,13 +169,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(727, 265);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(445, 185);
+            this.richTextBox1.Size = new System.Drawing.Size(445, 194);
             this.richTextBox1.TabIndex = 18;
             this.richTextBox1.Text = "";
             // 
             // AddVertex_button
             // 
-            this.AddVertex_button.Location = new System.Drawing.Point(145, 456);
+            this.AddVertex_button.Location = new System.Drawing.Point(508, 456);
             this.AddVertex_button.Name = "AddVertex_button";
             this.AddVertex_button.Size = new System.Drawing.Size(98, 23);
             this.AddVertex_button.TabIndex = 20;
@@ -185,9 +185,9 @@
             // 
             // example_button
             // 
-            this.example_button.Location = new System.Drawing.Point(249, 456);
+            this.example_button.Location = new System.Drawing.Point(2, 456);
             this.example_button.Name = "example_button";
-            this.example_button.Size = new System.Drawing.Size(98, 23);
+            this.example_button.Size = new System.Drawing.Size(68, 23);
             this.example_button.TabIndex = 21;
             this.example_button.Text = "Пример";
             this.example_button.Click += new System.EventHandler(this.example_button_Click);
@@ -197,7 +197,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1184, 477);
+            this.ClientSize = new System.Drawing.Size(1184, 486);
             this.Controls.Add(this.example_button);
             this.Controls.Add(this.AddVertex_button);
             this.Controls.Add(this.richTextBox1);
