@@ -15,24 +15,62 @@ namespace EcoProject
 {
     public partial class DrawPanelForm : Form
     {
+
+        
         Graph graph;
         Drawing draw;
         List<Vertex> V;
-        List<Edge> E;
-        List<Triangle> Triangles;
-
+        private BindingList<Vertex> VV;
+        private BindingSource bs;
+        private List<Edge> E; 
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
 
         public DrawPanelForm()
         {
+
             InitializeComponent();
             V = new List<Vertex>();
+            VV = new BindingList<Vertex>();
             draw = new Drawing(sheet.Width, sheet.Height);
             E = new List<Edge>();
             //graph = new Graph();
             sheet.Image = draw.GetBitmap();
+            mainTab_dataGridView.AutoGenerateColumns = false;
+
+            mainTab_dataGridView.Columns.Add("num","№ вершины");
+            mainTab_dataGridView.Columns.Add("xVertex", "X вершины");
+            mainTab_dataGridView.Columns.Add("yVertex", "Y вершины");
+            mainTab_dataGridView.Columns.Add("xVector", "X вектора");
+            mainTab_dataGridView.Columns.Add("xVector", "Y вектора");
+            
+            //создание столбца кнопок
+            DataGridViewButtonColumn button_column = new DataGridViewButtonColumn();
+            button_column.Name = "deleteVertex";
+            button_column.HeaderText = "Удаление";
+            button_column.FlatStyle = FlatStyle.Popup;
+            button_column.DefaultCellStyle.BackColor = Color.Firebrick;
+            
+
+            mainTab_dataGridView.Columns.Add(button_column);
+
+            mainTab_dataGridView.Columns[1].DataPropertyName = "x";
+            mainTab_dataGridView.Columns[2].DataPropertyName = "y";
+            mainTab_dataGridView.Columns[3].DataPropertyName = "xVector";
+            mainTab_dataGridView.Columns[4].DataPropertyName = "yVector";
+            
+            // mainTab_dataGridView.Columns[3].DataPropertyName = "";
+
+            //// Bind the list to the BindingSource.
+            //this.customersBindingSource.DataSource = VV;
+
+            //// Attach the BindingSource to the DataGridView.
+            //this.coordinate_dGV.DataSource = this.customersBindingSource;
+
+
+
         }
+
 
         //кнопка - выбрать вершину
         private void selectButton_Click(object sender, EventArgs e)
@@ -60,14 +98,11 @@ namespace EcoProject
         //кнопка - удалить элемент
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            ClearAll();
+            ClearPictureBox();
         }
 
-        private void ClearAll()
+        private void ClearPictureBox()
         {
-            coordinatesTable.Rows.Clear();
-            V.Clear();
-            E.Clear();
             draw.clearSheet();
             sheet.Image = draw.GetBitmap();
         }
@@ -90,6 +125,12 @@ namespace EcoProject
             }
         }
 
+        //private BindingSource customersBindingSource = new BindingSource();
+
+        //метод удаления строки из датагрида и соответсвующей ей вершины (до триангуляции) 
+
+       // private void Delete 
+
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
             //нажата кнопка "выбрать вершину"
@@ -108,9 +149,27 @@ namespace EcoProject
             {
                 Vertex vert = new Vertex(e.X, e.Y);
                 V.Add(vert);
-                draw.drawVertex(vert, V.Count.ToString());
-                coordinatesTable.Rows.Add(V.Count.ToString(), vert);
-                sheet.Image = draw.GetBitmap();
+
+                Update_mainTab_dgv();
+                UpdatePictureBox();
+
+                // BindingList<Vertex> VV =
+                //this.customersBindingSource.DataSource as BindingList<Vertex>;
+
+                // VV.Add(vert);
+
+                //добавление в таблицу
+                //coordinatesTable.Rows.Add(V.Count.ToString(), vert);
+
+            
+                //dataGridView1.Columns[2].Visible = false;
+
+
+                //var bindingList = new BindingList<Vertex>(V);
+                //var source = new BindingSource(bindingList, null);
+                //coordinate_dGV.DataSource = source;
+
+
             }
 
             //нажата кнопка "удалить элемент"
@@ -134,6 +193,34 @@ namespace EcoProject
                 }
             }
         }
+
+        private void UpdatePictureBox()
+        {
+            ClearPictureBox();
+            int i = 1;
+            foreach (Vertex item in V)
+            {
+                draw.drawVertex(item, i++.ToString());
+                draw.drawVector(item);
+            }
+            sheet.Image = draw.GetBitmap();
+        }
+
+        private void Update_mainTab_dgv()
+        {
+            mainTab_dataGridView.DataSource = null;
+            mainTab_dataGridView.DataSource = V;
+          
+          
+            for (int i = 0; i < mainTab_dataGridView.RowCount; i++)
+            {
+               
+                mainTab_dataGridView.Rows[i].Cells[0].Value = i + 1;
+                mainTab_dataGridView.Rows[i].Cells["deleteVertex"].Value = "✕";
+            }
+        }
+
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -179,6 +266,8 @@ namespace EcoProject
 
         }
 
+
+
         private void SetVectors()
         {
             for (int i = 0; i < V.Count; i++)
@@ -213,7 +302,7 @@ namespace EcoProject
 
         private void example_button_Click(object sender, EventArgs e)
         {
-            ClearAll();
+            ClearPictureBox();
             // умножаем все значения на 20
             float multipl = 20f;
             V.Add(new Vertex(2 * multipl, 8 * multipl));
@@ -306,6 +395,120 @@ namespace EcoProject
         private void AddVertex_button_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DrawPanelForm_Load(object sender, EventArgs e)
+        {
+            //вынести условия
+            
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void inputPoint_rb_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void putPoint_rb_CheckedChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void ReverseVisible(Control c)
+        {
+            if (c.Visible) c.Visible = false;
+            else c.Visible = true;
+        }
+
+        private void coordinate_panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mainTab_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5) //индекс столбца, в которой находится кнопка.
+            {
+                V.RemoveAt(e.RowIndex);
+                Update_mainTab_dgv();
+                UpdatePictureBox();
+            }
+           
+        }
+
+        private void mainTab_dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int check = e.ColumnIndex;
+
+            switch (check)
+            {
+                case 1: //изменение координаты X вершины
+                    {
+                        float number;
+                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        if (float.TryParse(cellsValue, out number))
+                        {
+                            V[e.RowIndex].x = number;
+                        }
+                      
+                        break;
+                    }
+                case 2: //изменение координаты Y вершины
+                    {
+                        float number;
+                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        if (float.TryParse(cellsValue, out number))
+                        {
+                            V[e.RowIndex].y = number;
+                        }
+                        
+                        break;
+                    }
+                case 3: //изменение координаты X вектора
+                    {
+                        float number;
+                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        if (float.TryParse(cellsValue, out number))
+                        {
+                            V[e.RowIndex].xVector = number;
+                        }
+                        break;
+                    }
+                case 4: //изменение координаты Y вектора
+                    {
+                        float number;
+                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        if (float.TryParse(cellsValue, out number))
+                        {
+                            V[e.RowIndex].yVector = number;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+
+            }
+            UpdatePictureBox();
+            float a = V[0].x;
+        }
+
+        private void addEmptyVertex_btn_Click(object sender, EventArgs e)
+        {
+            Vertex vert = new Vertex();
+            V.Add(vert);
+            Update_mainTab_dgv();
         }
     }
 }
