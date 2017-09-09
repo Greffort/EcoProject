@@ -9,7 +9,9 @@ namespace EcoProject
 {
     public class Vector
     {
-        public float x, y;
+        public float x { get; set; }
+        public float y { get; set; }
+
 
         public Vector(float x, float y)
         {

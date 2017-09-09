@@ -75,15 +75,15 @@ namespace EcoProject
             gr = Graphics.FromImage(bitmap);
             clearSheet();
             blackPen = new Pen(Color.Black);
-            blackPen.Width = 1;
+            blackPen.Width = 3;
             redPen = new Pen(Color.Red);
-            redPen.Width = 1;
+            redPen.Width = 3;
             darkGoldPen = new Pen(Color.DarkGoldenrod);
-            darkGoldPen.Width = 1;
+            darkGoldPen.Width = 3;
 
             somePen = new Pen(Color.IndianRed);
-            somePen.Width = 1;
-            fo = new Font("Segoe UI Light", 6);
+            somePen.Width = 2;
+            fo = new Font("Consolas", 8, FontStyle.Regular);
             br = Brushes.Black;
         }
 
@@ -148,7 +148,7 @@ namespace EcoProject
         public void drawVector(Vertex v)
         {
             Pen pen = new Pen(Color.Chocolate);
-            pen.Width = 1;
+            pen.Width = 2;
             pen.StartCap = LineCap.RoundAnchor;
             pen.EndCap = LineCap.ArrowAnchor;
             gr.DrawLine(pen, v.x, v.y, v.x + v.Vector.x, v.y + v.Vector.y);

@@ -12,12 +12,32 @@ namespace EcoProject
 {
     public class Vertex
     {
-        public float x, y;
+        public float x { set; get; }
 
-        public Vector Vector
-        { get; set; }
+        public float y {set; get; }
 
-        protected Vertex() { }
+        public Vector Vector = new Vector();
+
+        public float xVector
+        {
+            set { Vector.x = value; }
+            get { return Vector.x; }
+        }
+
+        public float yVector
+        {
+            set { Vector.y = value; }
+            get { return Vector.y; }
+        }
+
+
+
+
+        public Vertex()
+        {
+            this.x = new float();
+            this.y = new float();
+        }
 
         public Vertex(float x, float y) 
         {
