@@ -13,9 +13,9 @@ using System.Diagnostics;
 
 
 //Задачи - пишете аналогично тем, что ниже. Чтобы посмотреть полный список задач откройте Вид -> Список задач
-//TODO Починить кнопку "Очистить всё" - Кравчина
-//TODO Посмотреть алгоритм и рефакторинг - Никита
-//TODO Рефакторинг - Рома
+//TODO [Кравчина] Починить кнопку "Очистить всё". Внешний вид.
+//TODO [Никита] Посмотретm алгоритм. Видимо, его придётся сильно переделывать. Сейчас он работает только первый раз.
+//TODO [Рома] Рефакторинг, алгоритм.
 
 namespace EcoProject
 {
@@ -225,7 +225,7 @@ namespace EcoProject
             SetVectors();
             _triangles = _triangulator.Triangulation(V);
             Monitoring monitor = new Monitoring(_triangles);
-            monitor.DoCalculations();
+            _triangles = monitor.DoCalculations();
             drawAll(); // TODO Вынести этот метод в Draw
             updateCalculationsOutput();
             //TODO [Никита] переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
@@ -382,69 +382,71 @@ namespace EcoProject
 
         }
         //TODO Получается много копипаста. Подумать, можно ли от него избавиться и если да, то сделать это.
-        //TODO Добавить проврку на заполненность таблицы при мнгновенной триангуляции.
+        //TODO Вынести tryparse за условие заполненности таблицы.
         private void mainTab_dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int check = e.ColumnIndex;
-
-            switch (check)
+            if (IsTableFilled()) //TODO Изменить IsTableFilled на свойство
             {
-                case 1: //изменение координаты X вершины
-                    {
-                        float number;
-                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
-                        if (float.TryParse(cellsValue, out number))
-                        {
-                            V[e.RowIndex].x = number;
-                        }
-                        DoAllWork();
-                        break;
-                    }
-                case 2: //изменение координаты Y вершины
-                    {
-                        float number;
-                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
-                        if (float.TryParse(cellsValue, out number))
-                        {
-                            V[e.RowIndex].y = number;
-                        }
-                        DoAllWork();
-                        break;
-                    }
-                case 3: //изменение координаты X вектора
-                    {
-                        float number;
-                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
-                        if (float.TryParse(cellsValue, out number))
-                        {
-                            V[e.RowIndex].xVector = number;
-                        }
-                        _triangles = _triangulator.Triangulation(V);
-                        Monitoring monitoring = new Monitoring(_triangles);
-                        monitoring.DoCalculations();
-                        updateCalculationsOutput();
-                        break;
-                    }
-                case 4: //изменение координаты Y вектора
-                    {
-                        float number;
-                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
-                        if (float.TryParse(cellsValue, out number))
-                        {
-                            V[e.RowIndex].yVector = number;
-                        }
-                        Monitoring monitoring = new Monitoring(_triangles);
-                        monitoring.DoCalculations();
-                        updateCalculationsOutput();
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
+                int check = e.ColumnIndex;
 
+                switch (check)
+                {
+                    case 1: //изменение координаты X вершины
+                        {
+                            float number;
+                            string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
+                            if (float.TryParse(cellsValue, out number))
+                            {
+                                V[e.RowIndex].x = number;
+                            }
+                            DoAllWork();
+                            break;
+                        }
+                    case 2: //изменение координаты Y вершины
+                        {
+                            float number;
+                            string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
+                            if (float.TryParse(cellsValue, out number))
+                            {
+                                V[e.RowIndex].y = number;
+                            }
+                            DoAllWork();
+                            break;
+                        }
+                    case 3: //изменение координаты X вектора
+                        {
+                            float number;
+                            string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
+                            if (float.TryParse(cellsValue, out number))
+                            {
+                                V[e.RowIndex].xVector = number;
+                            }
+                            //_triangles = _triangulator.Triangulation(V);
+                            Monitoring monitoring = new Monitoring(_triangles);
+                            _triangles = monitoring.DoCalculations();
+                            updateCalculationsOutput();
+                            break;
+                        }
+                    case 4: //изменение координаты Y вектора
+                        {
+                            float number;
+                            string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
+                            if (float.TryParse(cellsValue, out number))
+                            {
+                                V[e.RowIndex].yVector = number;
+                            }
+                            Monitoring monitoring = new Monitoring(_triangles);
+                            _triangles = monitoring.DoCalculations();
+                            updateCalculationsOutput();
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                UpdatePictureBox();
             }
-            UpdatePictureBox();
         }
 
         private void addEmptyVertex_btn_Click(object sender, EventArgs e)

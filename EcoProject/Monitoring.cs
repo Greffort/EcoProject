@@ -8,7 +8,7 @@ namespace EcoProject
 {
     class Monitoring
     {
-       public List<Triangle> triangles;
+       private List<Triangle> triangles;
         Dictionary<int, Triangle> multTriangle;
 
 
@@ -22,10 +22,11 @@ namespace EcoProject
             triangles = tr;
         }
 
-        public void DoCalculations()
+        public List<Triangle> DoCalculations()
         {
             GetArrayOfOutsideEdge();
             AllDensities();
+            return triangles;
         }
 
         public void GetArrayOfOutsideEdge()
