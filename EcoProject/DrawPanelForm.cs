@@ -11,6 +11,12 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 
+
+//Задачи - пишете аналогично тем, что ниже. Чтобы посмотреть полный список задач откройте Вид -> Список задач
+//TODO Починить кнопку "Очистить всё" - Кравчина
+//TODO Посмотреть алгоритм и рефакторинг - Никита
+//TODO Рефакторинг - Рома
+
 namespace EcoProject
 {
     public partial class DrawPanelForm : Form
@@ -18,7 +24,8 @@ namespace EcoProject
         Graph graph;
         Drawing draw;
         List<Vertex> V;
-        Triangulator _triangulator = new Triangulator();
+        private Triangulator _triangulator = new Triangulator();
+        private List<Triangle> _triangles = new List<Triangle>();
         private BindingList<Vertex> VV;
         private BindingSource bs;
         private List<Edge> E;
@@ -56,17 +63,6 @@ namespace EcoProject
             mainTable.Columns[2].DataPropertyName = "y";
             mainTable.Columns[3].DataPropertyName = "xVector";
             mainTable.Columns[4].DataPropertyName = "yVector";
-
-            // mainTab_dataGridView.Columns[3].DataPropertyName = "";
-
-            //// Bind the list to the BindingSource.
-            //this.customersBindingSource.DataSource = VV;
-
-            //// Attach the BindingSource to the DataGridView.
-            //this.coordinate_dGV.DataSource = this.customersBindingSource;
-
-
-
         }
 
 
@@ -196,13 +192,7 @@ namespace EcoProject
         private void UpdatePictureBox()
         {
             ClearPictureBox();
-            int i = 1;
-            foreach (Vertex item in V)
-            {
-                draw.drawVertex(item, i++.ToString());
-                draw.drawVector(item);
-            }
-            sheet.Image = draw.GetBitmap();
+            drawAll();
         }
 
         private void Update_mainTab_dgv()
@@ -221,34 +211,7 @@ namespace EcoProject
         {
             if (IsTableFilled())
             {
-                SetVectors();
-                Monitoring monitor = new Monitoring(_triangulator.Triangulation(V));
-                //monitor.GetArrayOfOutsideEdge();
-                //monitor.AllDensities();
-                foreach (Triangle t in monitor.triangles)
-                {
-                    draw.BrushTriangle(t);
-                    draw.drawTriangle(t);
-                    for (int i = 0; i < t.edgemas.Length; i++)
-                    {
-                        if (t.edgemas[i].isOutside) draw.drawEdge(t.edgemas[i]);
-                        //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
-                    }
-                    richTextBox1.Text += t.ToString();
-                }
-                for (int i = 0; i < V.Count; i++)
-                {
-                    draw.drawVertex(V[i], (i + 1).ToString());
-                }
-
-                //переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
-                //т.е. Equals для треугольников, который сравнивает по вершинам.
-
-                foreach (Vertex vert in V)
-                {
-                    draw.drawVector(vert);
-                }
-                sheet.Image = draw.GetBitmap();
+                DoAllWork(); // TODO Переименовать.
             }
             else
             {
@@ -257,6 +220,35 @@ namespace EcoProject
 
         }
 
+        private void DoAllWork() //TODO Начинка метода не должна быть такой разносторонней. Вынести некоторые действия за пределы метода
+        {
+            SetVectors();
+            _triangles = _triangulator.Triangulation(V);
+            Monitoring monitor = new Monitoring(_triangles);
+            monitor.DoCalculations();
+            drawAll(); // TODO Вынести этот метод в Draw
+            updateCalculationsOutput();
+            //TODO [Никита] переписать не под вызов конструктора, а под вызов метода, который будет сравнивать треугольники.
+            //т.е. Equals для треугольников, который сравнивает по вершинам.
+
+            sheet.Image = draw.GetBitmap();
+        }
+
+        private void updateCalculationsOutput()
+        {
+            richTextBox1.Clear();
+            foreach (var triangle in _triangles)
+            {
+                richTextBox1.Text += triangle.ToString();
+            }
+        }
+
+        private void drawAll()
+        {
+            draw.DrawAndBrushTriangles(_triangles);
+            draw.DrawVertexes(V);
+            draw.DrawVectors(V);
+        }
 
 
         private void SetVectors()
@@ -286,11 +278,6 @@ namespace EcoProject
             return false;
         }
 
-        private void detail_btn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void example_button_Click(object sender, EventArgs e)
         {
             ClearPictureBox();
@@ -318,11 +305,14 @@ namespace EcoProject
             V[9].Vector = new Vector(3 * multipl, 1 * multipl);
             V.Add(new Vertex(20 * multipl, 9 * multipl));
             V[10].Vector = new Vector(2 * multipl, 2 * multipl);
+
+            Update_mainTab_dgv();
+            UpdatePictureBox();
             for (int i = 0; i < V.Count; i++)
             {
                 draw.drawVertex(V[i], (i + 1).ToString());
                 draw.drawVector(V[i]);
-                mainTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+                //mainTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
         }
@@ -379,51 +369,6 @@ namespace EcoProject
                 mainTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
-
-
-        }
-
-        private void AddVertex_button_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DrawPanelForm_Load(object sender, EventArgs e)
-        {
-            //вынести условия
-
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void inputPoint_rb_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void putPoint_rb_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ReverseVisible(Control c)
-        {
-            if (c.Visible) c.Visible = false;
-            else c.Visible = true;
-        }
-
-        private void coordinate_panel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void mainTab_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -436,7 +381,8 @@ namespace EcoProject
             }
 
         }
-
+        //TODO Получается много копипаста. Подумать, можно ли от него избавиться и если да, то сделать это.
+        //TODO Добавить проврку на заполненность таблицы при мнгновенной триангуляции.
         private void mainTab_dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int check = e.ColumnIndex;
@@ -451,7 +397,7 @@ namespace EcoProject
                         {
                             V[e.RowIndex].x = number;
                         }
-
+                        DoAllWork();
                         break;
                     }
                 case 2: //изменение координаты Y вершины
@@ -462,7 +408,7 @@ namespace EcoProject
                         {
                             V[e.RowIndex].y = number;
                         }
-
+                        DoAllWork();
                         break;
                     }
                 case 3: //изменение координаты X вектора
@@ -473,6 +419,10 @@ namespace EcoProject
                         {
                             V[e.RowIndex].xVector = number;
                         }
+                        _triangles = _triangulator.Triangulation(V);
+                        Monitoring monitoring = new Monitoring(_triangles);
+                        monitoring.DoCalculations();
+                        updateCalculationsOutput();
                         break;
                     }
                 case 4: //изменение координаты Y вектора
@@ -483,6 +433,9 @@ namespace EcoProject
                         {
                             V[e.RowIndex].yVector = number;
                         }
+                        Monitoring monitoring = new Monitoring(_triangles);
+                        monitoring.DoCalculations();
+                        updateCalculationsOutput();
                         break;
                     }
                 default:
@@ -492,7 +445,6 @@ namespace EcoProject
 
             }
             UpdatePictureBox();
-            float a = V[0].x;
         }
 
         private void addEmptyVertex_btn_Click(object sender, EventArgs e)
@@ -501,23 +453,5 @@ namespace EcoProject
             V.Add(vert);
             Update_mainTab_dgv();
         }
-
-        //private void mainTab_dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    switch (e.ColumnIndex)
-        //    {
-        //        case 3:
-        //            {
-        //                V[e.RowIndex].xVector = (float)mainTab_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-        //                break;
-        //            }
-        //        case 4:
-        //            {
-        //                V[e.RowIndex].yVector = (float)mainTab_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-        //                break;
-        //            }
-        //    }
-            
-        //}
     }
 }

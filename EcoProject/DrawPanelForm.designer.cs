@@ -54,7 +54,6 @@
             this.detail_btn.Text = "Детализировать";
             this.detail_btn.UseVisualStyleBackColor = true;
             this.detail_btn.Visible = false;
-            this.detail_btn.Click += new System.EventHandler(this.detail_btn_Click);
             // 
             // richTextBox1
             // 
@@ -75,7 +74,6 @@
             this.AddVertex_button.TabIndex = 20;
             this.AddVertex_button.Text = "Добавить точку";
             this.AddVertex_button.Visible = false;
-            this.AddVertex_button.Click += new System.EventHandler(this.AddVertex_button_Click);
             // 
             // example_button
             // 
@@ -197,7 +195,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DrawPanelForm";
             this.Text = "iВолга, Инновации и экология";
-            this.Load += new System.EventHandler(this.DrawPanelForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainTable)).EndInit();
             this.ResumeLayout(false);

@@ -87,6 +87,36 @@ namespace EcoProject
             br = Brushes.Black;
         }
 
+        public void DrawAndBrushTriangles(List<Triangle> triangles)
+        {
+            foreach (Triangle t in triangles)
+            {
+                BrushTriangle(t);
+                drawTriangle(t);
+                for (int i = 0; i < t.edgemas.Length; i++)
+                {
+                    if (t.edgemas[i].isOutside) drawEdge(t.edgemas[i]);
+                    //if (t.edgemas[i].brother != null) G.drawEdge(t.edgemas[i].brother, new Pen(Color.Aqua));
+                }
+            }
+        }
+
+        public void DrawVertexes(List<Vertex> vertexes)
+        {
+            for (int i = 0; i < vertexes.Count; i++)
+            {
+                drawVertex(vertexes[i], (i + 1).ToString());
+            }
+        }
+
+        public void DrawVectors(List<Vertex> vertexes)
+        {
+            foreach (Vertex vert in vertexes)
+            {
+                drawVector(vert);
+            }
+        }
+
         public Bitmap GetBitmap()
         {
             return bitmap;
