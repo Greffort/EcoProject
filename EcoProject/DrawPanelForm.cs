@@ -15,20 +15,18 @@ namespace EcoProject
 {
     public partial class DrawPanelForm : Form
     {
-
-        
         Graph graph;
         Drawing draw;
         List<Vertex> V;
+        Triangulator _triangulator = new Triangulator();
         private BindingList<Vertex> VV;
         private BindingSource bs;
-        private List<Edge> E; 
+        private List<Edge> E;
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
 
         public DrawPanelForm()
         {
-
             InitializeComponent();
             V = new List<Vertex>();
             VV = new BindingList<Vertex>();
@@ -36,29 +34,29 @@ namespace EcoProject
             E = new List<Edge>();
             //graph = new Graph();
             sheet.Image = draw.GetBitmap();
-            mainTab_dataGridView.AutoGenerateColumns = false;
+            mainTable.AutoGenerateColumns = false;
 
-            mainTab_dataGridView.Columns.Add("num","№ вершины");
-            mainTab_dataGridView.Columns.Add("xVertex", "X вершины");
-            mainTab_dataGridView.Columns.Add("yVertex", "Y вершины");
-            mainTab_dataGridView.Columns.Add("xVector", "X вектора");
-            mainTab_dataGridView.Columns.Add("xVector", "Y вектора");
-            
+            mainTable.Columns.Add("num", "№ вершины");
+            mainTable.Columns.Add("xVertex", "X вершины");
+            mainTable.Columns.Add("yVertex", "Y вершины");
+            mainTable.Columns.Add("xVector", "X вектора");
+            mainTable.Columns.Add("xVector", "Y вектора");
+
             //создание столбца кнопок
             DataGridViewButtonColumn button_column = new DataGridViewButtonColumn();
             button_column.Name = "deleteVertex";
             button_column.HeaderText = "Удаление";
             button_column.FlatStyle = FlatStyle.Popup;
             button_column.DefaultCellStyle.BackColor = Color.Firebrick;
-            
 
-            mainTab_dataGridView.Columns.Add(button_column);
 
-            mainTab_dataGridView.Columns[1].DataPropertyName = "x";
-            mainTab_dataGridView.Columns[2].DataPropertyName = "y";
-            mainTab_dataGridView.Columns[3].DataPropertyName = "xVector";
-            mainTab_dataGridView.Columns[4].DataPropertyName = "yVector";
-            
+            mainTable.Columns.Add(button_column);
+
+            mainTable.Columns[1].DataPropertyName = "x";
+            mainTable.Columns[2].DataPropertyName = "y";
+            mainTable.Columns[3].DataPropertyName = "xVector";
+            mainTable.Columns[4].DataPropertyName = "yVector";
+
             // mainTab_dataGridView.Columns[3].DataPropertyName = "";
 
             //// Bind the list to the BindingSource.
@@ -129,7 +127,7 @@ namespace EcoProject
 
         //метод удаления строки из датагрида и соответсвующей ей вершины (до триангуляции) 
 
-       // private void Delete 
+        // private void Delete 
 
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
@@ -153,15 +151,16 @@ namespace EcoProject
                 Update_mainTab_dgv();
                 UpdatePictureBox();
 
+
                 // BindingList<Vertex> VV =
                 //this.customersBindingSource.DataSource as BindingList<Vertex>;
 
                 // VV.Add(vert);
 
                 //добавление в таблицу
-                //coordinatesTable.Rows.Add(V.Count.ToString(), vert);
+                //mainTable.Rows.Add(V.Count.ToString(), vert);
 
-            
+
                 //dataGridView1.Columns[2].Visible = false;
 
 
@@ -208,32 +207,24 @@ namespace EcoProject
 
         private void Update_mainTab_dgv()
         {
-            mainTab_dataGridView.DataSource = null;
-            mainTab_dataGridView.DataSource = V;
-          
-          
-            for (int i = 0; i < mainTab_dataGridView.RowCount; i++)
+            mainTable.DataSource = null;
+            mainTable.DataSource = V;
+
+            for (int i = 0; i < mainTable.RowCount; i++)
             {
-               
-                mainTab_dataGridView.Rows[i].Cells[0].Value = i + 1;
-                mainTab_dataGridView.Rows[i].Cells["deleteVertex"].Value = "✕";
+                mainTable.Rows[i].Cells[0].Value = i + 1;
+                mainTable.Rows[i].Cells["deleteVertex"].Value = "✕";
             }
         }
-
-        
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (IsTableFilled())
             {
-                Triangulator triangulate = new Triangulator();
-                List<Vertex> listvertex = new List<Vertex>();
-
                 SetVectors();
-                List<Triangle> tr = triangulate.Triangulation(V);
-                Monitoring monitor = new Monitoring(tr);
-                monitor.GetArrayOfOutsideEdge();
-                monitor.AllDensities();
+                Monitoring monitor = new Monitoring(_triangulator.Triangulation(V));
+                //monitor.GetArrayOfOutsideEdge();
+                //monitor.AllDensities();
                 foreach (Triangle t in monitor.triangles)
                 {
                     draw.BrushTriangle(t);
@@ -273,19 +264,19 @@ namespace EcoProject
             for (int i = 0; i < V.Count; i++)
             {
                 //дописать tryparse-условие
-                float x = Convert.ToSingle(coordinatesTable.Rows[i].Cells[2].Value.ToString());
-                float y = Convert.ToSingle(coordinatesTable.Rows[i].Cells[3].Value.ToString());
+                float x = Convert.ToSingle(mainTable.Rows[i].Cells[3].Value);
+                float y = Convert.ToSingle(mainTable.Rows[i].Cells[4].Value);
                 V[i].Vector = new Vector(x, y);
             }
         }
 
         private bool IsTableFilled()
         {
-            if (coordinatesTable.Rows.Count > 0)
+            if (mainTable.Rows.Count > 0)
             {
-                for (int i = 0; i < coordinatesTable.Rows.Count; i++)
+                for (int i = 0; i < mainTable.Rows.Count; i++)
                 {
-                    if (coordinatesTable.Rows[i].Cells[2].Value == null || coordinatesTable.Rows[i].Cells[3].Value == null)
+                    if (mainTable.Rows[i].Cells[3].Value == null || mainTable.Rows[i].Cells[4].Value == null)
                     {
                         return false;
                     }
@@ -331,14 +322,14 @@ namespace EcoProject
             {
                 draw.drawVertex(V[i], (i + 1).ToString());
                 draw.drawVector(V[i]);
-                coordinatesTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+                mainTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
         }
 
         private void Example()
         {
-            coordinatesTable.Rows.Clear();
+            mainTable.Rows.Clear();
             V.Clear();
             E.Clear();
             // умножаем все значения на 20
@@ -385,7 +376,7 @@ namespace EcoProject
             {
                 draw.drawVertex(V[i], (i + 1).ToString());
                 draw.drawVector(V[i]);
-                coordinatesTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
+                mainTable.Rows.Add(i + 1, V[i], V[i].Vector.x, V[i].Vector.y);
             }
             sheet.Image = draw.GetBitmap();
 
@@ -400,7 +391,7 @@ namespace EcoProject
         private void DrawPanelForm_Load(object sender, EventArgs e)
         {
             //вынести условия
-            
+
 
         }
 
@@ -411,12 +402,12 @@ namespace EcoProject
 
         private void inputPoint_rb_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void putPoint_rb_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void ReverseVisible(Control c)
@@ -443,10 +434,10 @@ namespace EcoProject
                 Update_mainTab_dgv();
                 UpdatePictureBox();
             }
-           
+
         }
 
-        private void mainTab_dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void mainTab_dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int check = e.ColumnIndex;
 
@@ -455,29 +446,29 @@ namespace EcoProject
                 case 1: //изменение координаты X вершины
                     {
                         float number;
-                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
                         if (float.TryParse(cellsValue, out number))
                         {
                             V[e.RowIndex].x = number;
                         }
-                      
+
                         break;
                     }
                 case 2: //изменение координаты Y вершины
                     {
                         float number;
-                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
                         if (float.TryParse(cellsValue, out number))
                         {
                             V[e.RowIndex].y = number;
                         }
-                        
+
                         break;
                     }
                 case 3: //изменение координаты X вектора
                     {
                         float number;
-                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
                         if (float.TryParse(cellsValue, out number))
                         {
                             V[e.RowIndex].xVector = number;
@@ -487,7 +478,7 @@ namespace EcoProject
                 case 4: //изменение координаты Y вектора
                     {
                         float number;
-                        string cellsValue = mainTab_dataGridView.Rows[e.RowIndex].Cells[check].Value.ToString();
+                        string cellsValue = mainTable.Rows[e.RowIndex].Cells[check].Value.ToString();
                         if (float.TryParse(cellsValue, out number))
                         {
                             V[e.RowIndex].yVector = number;
@@ -510,5 +501,23 @@ namespace EcoProject
             V.Add(vert);
             Update_mainTab_dgv();
         }
+
+        //private void mainTab_dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    switch (e.ColumnIndex)
+        //    {
+        //        case 3:
+        //            {
+        //                V[e.RowIndex].xVector = (float)mainTab_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+        //                break;
+        //            }
+        //        case 4:
+        //            {
+        //                V[e.RowIndex].yVector = (float)mainTab_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+        //                break;
+        //            }
+        //    }
+            
+        //}
     }
 }

@@ -19,16 +19,13 @@ namespace EcoProject
 
         public Monitoring(List<Triangle> tr)
         {
-            this.triangles = new List<Triangle>();
-            foreach (Triangle t in tr)
-            {
-                this.triangles.Add(t);
-            }
+            triangles = tr;
         }
 
-        public void AddTriangle()
+        public void DoCalculations()
         {
-
+            GetArrayOfOutsideEdge();
+            AllDensities();
         }
 
         public void GetArrayOfOutsideEdge()

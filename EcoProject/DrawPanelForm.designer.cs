@@ -30,11 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DrawPanelForm));
             this.detail_btn = new System.Windows.Forms.Button();
-            this.coordinatesTable = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.AddVertex_button = new System.Windows.Forms.Button();
             this.example_button = new System.Windows.Forms.Button();
@@ -44,11 +39,10 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.drawVertexButton = new System.Windows.Forms.Button();
             this.sheet = new System.Windows.Forms.PictureBox();
-            this.mainTab_dataGridView = new System.Windows.Forms.DataGridView();
+            this.mainTable = new System.Windows.Forms.DataGridView();
             this.addEmptyVertex_btn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.coordinatesTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainTab_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainTable)).BeginInit();
             this.SuspendLayout();
             // 
             // detail_btn
@@ -62,50 +56,14 @@
             this.detail_btn.Visible = false;
             this.detail_btn.Click += new System.EventHandler(this.detail_btn_Click);
             // 
-            // coordinatesTable
-            // 
-            this.coordinatesTable.AllowUserToAddRows = false;
-            this.coordinatesTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.coordinatesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.coordinatesTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
-            this.coordinatesTable.Location = new System.Drawing.Point(841, 228);
-            this.coordinatesTable.Name = "coordinatesTable";
-            this.coordinatesTable.Size = new System.Drawing.Size(87, 162);
-            this.coordinatesTable.TabIndex = 17;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "№ вершины";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Координаты вершины";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "x";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "y";
-            this.Column4.Name = "Column4";
-            // 
             // richTextBox1
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(74, 164);
+            this.richTextBox1.Location = new System.Drawing.Point(762, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(0, 79);
+            this.richTextBox1.Size = new System.Drawing.Size(299, 438);
             this.richTextBox1.TabIndex = 18;
             this.richTextBox1.Text = "";
             // 
@@ -195,17 +153,17 @@
             this.sheet.TabStop = false;
             this.sheet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sheet_MouseClick);
             // 
-            // mainTab_dataGridView
+            // mainTable
             // 
-            this.mainTab_dataGridView.AllowUserToAddRows = false;
-            this.mainTab_dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.mainTab_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.mainTab_dataGridView.Location = new System.Drawing.Point(111, 305);
-            this.mainTab_dataGridView.Name = "mainTab_dataGridView";
-            this.mainTab_dataGridView.Size = new System.Drawing.Size(645, 145);
-            this.mainTab_dataGridView.TabIndex = 25;
-            this.mainTab_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainTab_dataGridView_CellContentClick);
-            this.mainTab_dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainTab_dataGridView_CellValueChanged);
+            this.mainTable.AllowUserToAddRows = false;
+            this.mainTable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mainTable.Location = new System.Drawing.Point(111, 305);
+            this.mainTable.Name = "mainTable";
+            this.mainTable.Size = new System.Drawing.Size(645, 145);
+            this.mainTable.TabIndex = 25;
+            this.mainTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainTab_dataGridView_CellContentClick);
+            this.mainTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainTab_dataGridView_CellEndEdit);
             // 
             // addEmptyVertex_btn
             // 
@@ -223,13 +181,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(940, 486);
+            this.ClientSize = new System.Drawing.Size(1073, 486);
             this.Controls.Add(this.addEmptyVertex_btn);
-            this.Controls.Add(this.mainTab_dataGridView);
+            this.Controls.Add(this.mainTable);
             this.Controls.Add(this.example_button);
             this.Controls.Add(this.AddVertex_button);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.coordinatesTable);
             this.Controls.Add(this.detail_btn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.selectButton);
@@ -241,9 +198,8 @@
             this.Name = "DrawPanelForm";
             this.Text = "iВолга, Инновации и экология";
             this.Load += new System.EventHandler(this.DrawPanelForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.coordinatesTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainTab_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainTable)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -258,15 +214,10 @@
        
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button detail_btn;
-        private System.Windows.Forms.DataGridView coordinatesTable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button AddVertex_button;
         private System.Windows.Forms.Button example_button;
-        private System.Windows.Forms.DataGridView mainTab_dataGridView;
+        private System.Windows.Forms.DataGridView mainTable;
         private System.Windows.Forms.Button addEmptyVertex_btn;
 
     }
