@@ -14,8 +14,9 @@ using System.Diagnostics;
 
 //Задачи - пишете аналогично тем, что ниже. Чтобы посмотреть полный список задач откройте Вид -> Список задач
 //TODO [Кравчина] Починить кнопку "Очистить всё". Внешний вид.
-//TODO [Никита] Посмотретm алгоритм. Видимо, его придётся сильно переделывать. Сейчас он работает только первый раз.
+//TODO [Никита] Посмотретm алгоритм. Видимо, его придётся сильно переделывать.
 //TODO [Рома] Рефакторинг, алгоритм.
+//TODO Сделать вычисления объёмов и плотностей без триангуляции. Хотя, я не думаю, что это даст сильный профит и надо ломать голову над производительностью.
 
 namespace EcoProject
 {
@@ -421,10 +422,7 @@ namespace EcoProject
                             {
                                 V[e.RowIndex].xVector = number;
                             }
-                            //_triangles = _triangulator.Triangulation(V);
-                            Monitoring monitoring = new Monitoring(_triangles);
-                            _triangles = monitoring.DoCalculations();
-                            updateCalculationsOutput();
+                            DoAllWork();
                             break;
                         }
                     case 4: //изменение координаты Y вектора
@@ -435,9 +433,7 @@ namespace EcoProject
                             {
                                 V[e.RowIndex].yVector = number;
                             }
-                            Monitoring monitoring = new Monitoring(_triangles);
-                            _triangles = monitoring.DoCalculations();
-                            updateCalculationsOutput();
+                            DoAllWork();
                             break;
                         }
                     default:
